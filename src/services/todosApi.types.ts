@@ -16,6 +16,7 @@ export enum Status {
 export interface ReturnStatus {
     status: Status;
     errorDescr?: string;
+    data?: TodoListData | TagsData
 }
 
 export interface LoadTodoList extends ReturnStatus {

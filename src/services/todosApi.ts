@@ -1,4 +1,4 @@
-import { Status, ReturnStatus, LoadTodoList, LoadTagist } from './todosApi.types'
+import { Status, ReturnStatus, TagsData, TodoListData } from './todosApi.types'
 import { TodoItemState, TodoItem } from '../store/store.types'
 import { store } from '../store'
 
@@ -15,7 +15,7 @@ const tags = [
     { id: 'tag-3', name: 'food' },
 ]
 
-const apiCallMock = async <T>(mockResult: T) => new Promise<any>((resolve => {
+const apiCallMock = async <P extends TodoListData | TagsData | undefined>(mockResult?: P) => new Promise<ReturnStatus>(resolve => {
     store.state.isLoading = true;
     setTimeout(() => {
         store.state.isLoading = false;
@@ -23,27 +23,27 @@ const apiCallMock = async <T>(mockResult: T) => new Promise<any>((resolve => {
             status: Status.OK,
             data:  mockResult
         })
-    }, 2000)
-}))
+    }, 500)
+})
 
-export const loadTodos = async (): Promise<LoadTodoList> => {
-    const result = await apiCallMock<any>({ todos })
-    return result as LoadTodoList
+export const loadTodos = async (): Promise<ReturnStatus> => {
+    return await apiCallMock<TodoListData>({ todos })
 //    return Promise.reject({ status: Status.ERROR, errorDescr: 'error loading todo items' })
 }
 
-export const loadTags = async (): Promise<LoadTagist> => {
-    return Promise.resolve({ status: Status.OK, data: { tags } })
+export const loadTags = async (): Promise<ReturnStatus> => {
+    //return Promise.resolve({ status: Status.OK, data: { tags } })
+    return await apiCallMock<TagsData>({ tags })
     // return Promise.reject({ status: Status.ERROR, errorDescr: 'error loading todo items' })
 }
 
 export const deleteTodoItem = async (id: string): Promise<ReturnStatus> => {
-    return Promise.resolve({ status: Status.OK })
+    return await apiCallMock()
     // return Promise.reject({ status: Status.ERROR, errorDescr: 'error deleting item' })
 }
 
 
 export const updateTodoItemStatus = async (id: string, state: TodoItemState): Promise<ReturnStatus> => {
-    return Promise.resolve({ status: Status.OK })
+    return await apiCallMock()
     // return Promise.reject({ status: Status.ERROR, errorDescr: 'error updating item' })
 }
