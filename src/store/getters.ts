@@ -1,18 +1,18 @@
 import { GetterTree } from 'vuex'
 import { TodoItemState, TodoItem, Tag, State } from './store.types'
+import { GetterTypes, Getters } from './getter.types'
 
-
-export const getters: GetterTree<State, State> = {
-    waitingTodos (state: State): TodoItem[] {
+export const getters: GetterTree<State, State> & Getters = {
+    [GetterTypes.waitingTodos] (state: State): TodoItem[] {
       return state.todos.filter(todo => todo.state === TodoItemState.WAITING)
     },
-    doneTodos (state: State): TodoItem[] {
+    [GetterTypes.doneTodos] (state: State): TodoItem[] {
       return state.todos.filter(todo => todo.state === TodoItemState.DONE)
     },
-    getTagById: (state: State) => (id: string): Tag | undefined => {
+    [GetterTypes.getTagById]: (state: State) => (id: string): Tag | undefined => {
       return state.tags.find(tag => tag.id === id)
     },
-    getTodoItemById: (state: State) => (id: string): TodoItem | undefined => {
+    [GetterTypes.getTodoItemById]: (state: State) => (id: string): TodoItem | undefined => {
       return state.todos.find(todoItem => todoItem.id === id)
     }
 }

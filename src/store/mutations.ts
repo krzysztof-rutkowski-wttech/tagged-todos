@@ -5,16 +5,20 @@ import { Mutations } from './mutation.types'
 
 export const mutations: MutationTree<State> & Mutations = {
   [MutationTypes.setTodoItemAsDone] (state: State, todoId: string): void {
-    const todoItem = state.todos.find(todoItem => todoItem.id === todoId)
+    const newTodos = [ ...state.todos ]
+    const todoItem = newTodos.find(todoItem => todoItem.id === todoId)
     if (todoItem) {
       todoItem.state = TodoItemState.DONE
     }
+    state.todos = newTodos
   },
   [MutationTypes.removeTodoItem] (state: State, todoId: string): void {
-    const index = state.todos.findIndex(todoItem => todoItem.id === todoId)
+    const newTodos = [ ...state.todos ]
+    const index = newTodos.findIndex(todoItem => todoItem.id === todoId)
     if (index >= 0) {
-      state.todos.splice(index, 1);
+      newTodos.splice(index, 1)
     }
+    state.todos = newTodos
   },
   [MutationTypes.setTodos] (state: State, data: TodoItem[]): void {
     state.todos = data;

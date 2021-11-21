@@ -9,7 +9,7 @@ import { store } from './store'
 
 export default {
   components: { NavBar },
-  mounted: () => {
+  mounted () {
     Promise.all([store.dispatch('loadTodos'), store.dispatch('loadTags')])
   }
 }

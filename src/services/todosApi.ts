@@ -1,32 +1,8 @@
-import { TodoItemState, TodoItem, Tag } from '../store/store.types'
+import { Status, ReturnStatus, LoadTodoList, LoadTagist } from './todosApi.types'
+import { TodoItemState, TodoItem } from '../store/store.types'
+import { store } from '../store'
 
-export interface TodoListData {
-    todos: TodoItem[]
-}
-
-export interface TagsData {
-    tags: Tag[]
-}
-
-export enum Status {
-    ERROR,
-    OK
-}
-
-export interface ReturnStatus {
-    status: Status;
-    errorDescr?: string;
-}
-
-export interface LoadTodoList extends ReturnStatus {
-    data: TodoListData
-}
-
-export interface LoadTagist extends ReturnStatus {
-    data: TagsData
-}
-
-const todos = [
+const todos: TodoItem[] = [
     { id: 'todo-1', name: 'tomatoe', description: 'buy yellow tomatoe', state: TodoItemState.WAITING },
     { id: 'todo-2', name: 'chocolate', description: '80% chocolate', state: TodoItemState.WAITING },
     { id: 'todo-3', name: 'hammer', description: '', state: TodoItemState.WAITING },
@@ -39,9 +15,21 @@ const tags = [
     { id: 'tag-3', name: 'food' },
 ]
 
+const apiCallMock = async <T>(mockResult: T) => new Promise<any>((resolve => {
+    store.state.isLoading = true;
+    setTimeout(() => {
+        store.state.isLoading = false;
+        resolve({
+            status: Status.OK,
+            data:  mockResult
+        })
+    }, 2000)
+}))
+
 export const loadTodos = async (): Promise<LoadTodoList> => {
-    return Promise.resolve({ status: Status.OK, data: { todos } })
-    // return Promise.reject({ status: Status.ERROR, errorDescr: 'error loading todo items' })
+    const result = await apiCallMock<any>({ todos })
+    return result as LoadTodoList
+//    return Promise.reject({ status: Status.ERROR, errorDescr: 'error loading todo items' })
 }
 
 export const loadTags = async (): Promise<LoadTagist> => {

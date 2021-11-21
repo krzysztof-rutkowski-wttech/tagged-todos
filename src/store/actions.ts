@@ -1,35 +1,8 @@
-import { ActionTree, ActionContext } from 'vuex'
-import { ActionTypes } from './action.types'
+import { ActionTree } from 'vuex'
+import { ActionTypes, Actions } from './action.types'
 import { loadTodos, loadTags, deleteTodoItem, updateTodoItemStatus } from '../services/todosApi'
 import { TodoItemState, State } from './store.types'
-import { Mutations, MutationTypes } from './mutation.types'
-
-type AugmentedActionContext = {
-  commit<K extends keyof Mutations>(
-    key: K,
-    todoId: Parameters<Mutations[K]>[1]
-  ): ReturnType<Mutations[K]>
-} & Omit<ActionContext<State, State>, 'commit'>
-
-export interface Actions {
-  [ActionTypes.setTodoItemAsDone] (
-    { commit }: AugmentedActionContext,
-    todoId: string
-  ): Promise<void>,
-
-  [ActionTypes.removeTodoItem] (
-    { commit }: AugmentedActionContext,
-    todoId: string
-  ): Promise<void>,
-
-  [ActionTypes.loadTodos] (
-    { commit }: AugmentedActionContext
-  ): Promise<void>,
-
-  [ActionTypes.loadTags] (
-    { commit }: AugmentedActionContext
-  ): Promise<void>,
-}
+import { MutationTypes } from './mutation.types'
 
 export const actions: ActionTree<State, State> & Actions = {
     async [ActionTypes.setTodoItemAsDone] ({ commit }, todoId) {
@@ -46,7 +19,11 @@ export const actions: ActionTree<State, State> & Actions = {
 
     async [ActionTypes.loadTodos] ({ commit }) {
       loadTodos()
-        .then( ({ data }) => commit(MutationTypes.setTodos, data.todos) )
+        .then( ({ data }) => { 
+          console.log(data)
+          commit(MutationTypes.setTodos, data.todos) 
+        })
+
         .catch( ({ errorDescr }) => console.log(errorDescr) )
     },
 

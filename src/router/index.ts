@@ -25,7 +25,6 @@ const routes = [
     path: "/edit-tag/:tagId",
     name: "edit-tag",
     component: EditTag,
-    props: true,
   },
   {
     path: "/history",

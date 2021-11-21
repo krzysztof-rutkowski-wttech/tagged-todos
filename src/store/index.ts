@@ -7,9 +7,10 @@ import { getters } from './getters'
 
 export const key: InjectionKey<Store<State>> = Symbol()
 
-const state = {
+const state: State = {
   todos: [],
   tags: [],
+  isLoading: false,
 }
 
 export const store = createStore<State>({

@@ -1,15 +1,27 @@
 <template>
   <nav>
     <ul>
-        <li v-for="item in menuItems" :key="item.name">
-            <router-link :to="{ name: item.name }"> {{ item.label }}</router-link>
-        </li>
+      <li v-for="item in menuItems" :key="item.name">
+        <router-link :to="{ name: item.name }"> {{ item.label }}</router-link>
+      </li>
+      <li>
+        <div v-show="isLoading">@</div>
+      </li>
     </ul>
   </nav>
 </template>
 
 <script lang="ts">
+import useIsLoading from '../utils/useIsLoading'
+
 export default {
+  setup() {
+    const { isLoading } = useIsLoading();
+
+    return {
+      isLoading
+    }    
+  },
   data: () => { return {
     menuItems: [
       { name: 'home', label: 'Home' },

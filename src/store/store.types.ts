@@ -16,4 +16,5 @@ export interface Tag {
 export interface State {
   todos: TodoItem[],
   tags: Tag[],
+  isLoading: boolean,
 }
