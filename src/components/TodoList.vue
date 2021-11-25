@@ -12,10 +12,13 @@
         <li :class="[ todo.state === TodoItemState.DONE && 'done' ]" v-for="todo in list" :key="todo.id">
             <div class='line-1'>
                 <button class="do-btn" @click="todo.state === TodoItemState.WAITING && setAsDone(todo.id)">
-                    {{ todo.state === TodoItemState.WAITING ? 'do' : 'done'}}
+                    <icon v-if="todo.state === TodoItemState.DONE" icon="check-circle" size="2x" />
+                    <icon v-if="todo.state === TodoItemState.WAITING" icon="play-circle" size="2x" />
                 </button>
                 <div class="name">{{ todo.name }}</div>
-                <button class="remove-btn" @click="remove(todo.id)">remove</button>
+                <button class="remove-btn" @click="remove(todo.id)">
+                    <icon icon="trash-alt" size="2x" />
+                </button>
             </div>
             <div v-if="todo.description" class='line-2'>{{ todo.description }}</div>
         </li>
@@ -126,6 +129,9 @@ export default {
     flex-grow: 1;
     margin: 0 1rem;
     font-size: 1.75rem;
+    align-self: center;
+    padding-left: .75rem;
+
   }
 
   .todo-list button {
@@ -134,7 +140,7 @@ export default {
     cursor: pointer;
     border-radius: 2rem;
     background-color: #e5e8e9;
-    font-size: 0.875rem;
+    font-size: .875rem;
     font-weight: 600;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   }
@@ -152,7 +158,8 @@ export default {
     border: 1px solid #c76d7e;
     margin-right: -3rem;
     text-align: left;
-    padding-left: 1rem;
+    padding-left: 1.75rem;
+    font-size: 0.75rem;
   }
 
   .todo-list .done .do-btn {

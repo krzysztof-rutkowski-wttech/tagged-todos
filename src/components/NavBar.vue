@@ -34,6 +34,10 @@ export default {
 </script>
 
 <style scoped>
+nav {
+  font-size: 1.125rem;
+}
+
 nav ul {
     list-style-type: none;
     display: flex;

@@ -14,7 +14,8 @@ import NavBar from '../components/NavBar.vue'
 export default {
   components: { TagList, ActionButton, NavBar },
   setup() {
-    const tags = ref(store.state.tags);
+    const tags = ref(store.state.tags)
+
     return {
       tags,
       ActionButtonType

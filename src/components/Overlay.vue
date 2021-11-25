@@ -2,10 +2,10 @@
   <nav>
     <ul>
       <li>
-        <a v-on:click="handleClose">{==</a>
+        <router-link :to="{ name: returnPageName }"><icon icon="angle-left" size="2x" /></router-link>
       </li>
-      <li>
-        <div>Overlay Title</div>
+      <li class="title">
+        <div>{{ title }}</div>
       </li>
     </ul>
   </nav>
@@ -15,17 +15,11 @@
 </template>
 
 <script lang="ts">
-import { store } from '../store'
 
 export default {
-  setup() {
-    const handleClose = () => {
-      store.state.overlayOpened = false
-    }
-
-    return {
-      handleClose,
-    }    
+  props: {
+    title: String,
+    returnPageName: String,
   },
 }
 </script>
@@ -47,12 +41,19 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #2E3138;
-    padding: 1rem;
+    color: #AAA;
+    padding: 0 1.25rem;
     margin: 0;
     cursor: pointer;
 }
 
+.title {
+  color: #2E3138;
+  font-size: 1.5rem;
+  width: 100%;
+  text-align: center;
+  margin-right: 3.5rem;
+}
 .content {
   background-color: #D7DFE0;
 }

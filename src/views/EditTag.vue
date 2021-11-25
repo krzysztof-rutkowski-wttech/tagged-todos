@@ -1,5 +1,5 @@
 <template>
-  <Overlay>
+  <Overlay :title="tag?.name" returnPageName="tags">
     <h1>Edit tag - {{ tag?.name }}</h1>
     <div>tag id: {{ tag?.id }}</div>
   </Overlay>
