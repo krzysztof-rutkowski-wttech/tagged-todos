@@ -30,7 +30,7 @@ export default {
       { name: 'history', label: 'History' },
     ]
   } }
-};
+}
 </script>
 
 <style scoped>

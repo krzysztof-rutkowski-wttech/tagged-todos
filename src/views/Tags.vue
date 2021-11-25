@@ -1,19 +1,23 @@
 <template>
-  <h1>Tag list</h1>
-  <ul>
-    <li v-for="tag in tags" :key="tag.id">
-      <router-link :to="{ name: 'edit-tag', params: { tagId: tag.id } }"> {{ tag.name }}</router-link>
-    </li>
-  </ul>
+  <NavBar />
+  <tag-list />
+  <action-button label="Add a new tag" :type="ActionButtonType.BOTTOM"/>
 </template>
 
 <script lang="ts">
+import {ref } from 'vue'
 import { store } from '../store'
+import ActionButton, { ActionButtonType } from '../components/ActionButton.vue'
+import TagList from '../components/TagList.vue'
+import NavBar from '../components/NavBar.vue'
 
 export default {
-  computed: {
-    tags: () => {
-      return store.state.tags
+  components: { TagList, ActionButton, NavBar },
+  setup() {
+    const tags = ref(store.state.tags);
+    return {
+      tags,
+      ActionButtonType
     }
   },
 }

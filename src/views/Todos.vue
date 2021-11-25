@@ -1,21 +1,21 @@
 <template>
+  <NavBar />
   <tag-selector />
   <todo-list />
-  <div v-show="isLoading" class="isLoading">please wait...</div>
+  <action-button label="Add Todo item" :type="ActionButtonType.BOTTOM"/>
 </template>
 
 <script lang="ts">
 import TodoList from '../components/TodoList.vue'
 import TagSelector from '../components/TagSelector.vue'
-import useIsLoading from '../utils/useIsLoading'
+import ActionButton, { ActionButtonType } from '../components/ActionButton.vue'
+import NavBar from '../components/NavBar.vue'
 
 export default {
-  components: { TodoList, TagSelector },
+  components: { TodoList, TagSelector, ActionButton, NavBar },
   setup() {
-      const { isLoading } = useIsLoading();
-
       return {
-        isLoading
+        ActionButtonType,
       }
   }
 };

@@ -26,7 +26,6 @@
 import { ref, watch } from 'vue'
 import { store } from '../store'
 import { TodoItem, TodoItemState } from '../store/store.types'
-import useIsLoading from '../utils/useIsLoading'
 
 export default {
   setup() {
@@ -47,8 +46,6 @@ export default {
             ...store.getters.doneTodos,
         ]
     });
-
-    const { isLoading } = useIsLoading();
 
     const remove = (todoId: string) => {
       store.dispatch('removeTodoItem', todoId)
@@ -78,10 +75,9 @@ export default {
       isDone,
       waitingTodosCount,
       doneTodosCount,
-      isLoading,
     }
   },
-};
+}
 </script>
 
 <style scoped>
@@ -133,24 +129,30 @@ export default {
   }
 
   .todo-list button {
-    width: 5rem;
-    padding: 0.75rem;
-    border: 1px solid #fff;
+    width: 7rem;
+    padding: 1.25rem 3rem;
     cursor: pointer;
-    border-radius: 12px;
+    border-radius: 2rem;
     background-color: #e5e8e9;
     font-size: 0.875rem;
     font-weight: 600;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   }
 
   .todo-list .do-btn {
-    background-color: #e5e8e9;
     color: #4C8577;
+    border: 1px solid #4c8577;
+    margin-left: -3rem;
+    text-align: right;
+    padding-right: 2rem;
   }
 
   .todo-list .remove-btn {
-    background-color: #e5e8e9;
     color: #c76d7e;
+    border: 1px solid #c76d7e;
+    margin-right: -3rem;
+    text-align: left;
+    padding-left: 1rem;
   }
 
   .todo-list .done .do-btn {

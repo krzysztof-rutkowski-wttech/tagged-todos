@@ -11,6 +11,7 @@ const state: State = {
   todos: [],
   tags: [],
   isLoading: false,
+  overlayOpened: true,
 }
 
 export const store = createStore<State>({

@@ -1,19 +1,22 @@
 <template>
-  <h1>Edit tag - {{ tag.name }}</h1>
-  <div>tag id: {{ tag.id }}</div>
+  <Overlay>
+    <h1>Edit tag - {{ tag?.name }}</h1>
+    <div>tag id: {{ tag?.id }}</div>
+  </Overlay>
 </template>
 
 <script lang="ts">
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-// import { useStore } from 'vuex'
 import { store } from '../store'
+import Overlay from '../components/Overlay.vue'
 
 export default {
+  components: { Overlay },
   setup() {
     const route = useRoute();
-    // const store = useStore();  // Don't know why it returns undefined
     const tagId = route.params.tagId;
-    const tag = store.getters.getTagById(tagId)
+    const tag = computed(() => store.getters.getTagById(tagId))
 
     return {
       tag

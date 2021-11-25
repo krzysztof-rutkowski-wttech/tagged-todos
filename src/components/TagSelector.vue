@@ -1,23 +1,19 @@
 <template>
-  <div class='tag-select'>Select tag... </div>
+  <action-button label="Select tag..." :type="ActionButtonType.TOP"/>
 </template>
 
 <script lang="ts">
+import ActionButton, { ActionButtonType } from './ActionButton.vue'
 
 export default {
+  components: { ActionButton },
   setup() { 
-    return { }
+    return {
+        ActionButtonType
+    }
   },
-};
+}
 </script>
 
-<style scoped>
-  .tag-select {
-    text-align: center;
-    font-size: 1.5rem;
-    padding: 0.75rem;
-    background-color: #9fc1b8;
-    color: #4c8577;
-    cursor: pointer;
-  }
+<style>
 </style>

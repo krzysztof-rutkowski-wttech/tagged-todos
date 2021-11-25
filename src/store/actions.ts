@@ -34,7 +34,7 @@ export const actions: ActionTree<State, State> & Actions = {
 
     async [ActionTypes.loadTags] ({ commit }) {
       try {
-        const { data } = await loadTodos()
+        const { data } = await loadTags()
         commit(MutationTypes.setTags, data?.tags) 
       } catch ({ errorDescr }) {
         console.log(errorDescr)
