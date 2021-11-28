@@ -1,10 +1,9 @@
 <template>
-    <div class="action-button" :class="type">{{ label }}</div>
+    <div class="action-button" :class="type" v-on:click="handleClick">{{ label }}</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export enum ActionButtonType { TOP = 'TOP', BOTTOM ='BOTTOM' }
 
@@ -13,11 +12,17 @@ export default defineComponent({
     label: String,
     type: String
   },
-  setup(props) {
+  emits: ['click'],
+  setup(props, { emit }) {
     const label = ref(props.label)
+
+    const handleClick = () => {
+      emit('click')
+    }
 
     return {
         label,
+        handleClick,
         type: props.type?.toLowerCase()
     }    
   },

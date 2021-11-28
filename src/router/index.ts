@@ -4,6 +4,7 @@ import Todos from "../views/Todos.vue";
 import History from "../views/History.vue";
 import Tags from "../views/Tags.vue";
 import EditTag from "../views/EditTag.vue";
+import RemoveDialog from '../views/RemoveDialog.vue';
 
 const routes = [
   {

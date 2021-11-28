@@ -2,23 +2,16 @@
   <NavBar />
   <tag-selector />
   <todo-list />
-  <action-button label="Add Todo item" :type="ActionButtonType.BOTTOM"/>
 </template>
 
 <script lang="ts">
 import TodoList from '../components/TodoList.vue'
 import TagSelector from '../components/TagSelector.vue'
-import ActionButton, { ActionButtonType } from '../components/ActionButton.vue'
 import NavBar from '../components/NavBar.vue'
 
 export default {
-  components: { TodoList, TagSelector, ActionButton, NavBar },
-  setup() {
-      return {
-        ActionButtonType,
-      }
-  }
-};
+  components: { TodoList, TagSelector, NavBar },
+}
 </script>
 
 <style>

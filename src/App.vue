@@ -1,29 +1,36 @@
 <template>
-  <router-view />
+  <router-view/>
   <div v-show="isLoading" class="isLoading">please wait...</div>
 </template>
 
 <script lang="ts">
+import { ref, watch } from 'vue'
 import { store } from './store'
-import Overlay from './components/Overlay.vue'
 import useIsLoading from './utils/useIsLoading'
+import Overlay from './components/Overlay.vue'
 
 export default {
-  components: { Overlay },
-  setup() {
-    const { isLoading } = useIsLoading()
+    setup() {
+        const { isLoading } = useIsLoading()
+        const overlay = ref<Object | null>(null)
 
-    return {
-      isLoading,
-      overlayOpened: store.state.overlayOpened,
-    }
-  },
-  mounted () {
-    Promise.all([
-      store.dispatch('loadTodos'),
-      store.dispatch('loadTags'),
-    ])
-  }
+        watch(() => store.state.overlay, (data) => {
+          console.log("value changes detected", data)
+          overlay.value = data
+        });
+
+        return {
+            isLoading,
+            overlay,
+        };
+    },
+    mounted() {
+        Promise.all([
+            store.dispatch("loadTodos"),
+            store.dispatch("loadTags"),
+        ]);
+    },
+    components: { Overlay }
 }
 </script>
 

@@ -8,11 +8,11 @@
 </template>
 
 <script lang="ts">
-import { ref, watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import { store } from '../store'
 import { Tag } from '../store/store.types'
 
-export default {
+export default defineComponent({
   setup() {
     const list = ref<Tag[]>(store.state.tags);
 
@@ -25,7 +25,7 @@ export default {
       list,
     }
   },
-}
+})
 </script>
 
 <style>

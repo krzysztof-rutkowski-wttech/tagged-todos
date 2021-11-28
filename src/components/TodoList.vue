@@ -16,71 +16,98 @@
                     <icon v-if="todo.state === TodoItemState.WAITING" icon="play-circle" size="2x" />
                 </button>
                 <div class="name">{{ todo.name }}</div>
-                <button class="remove-btn" @click="remove(todo.id)">
+                <button class="remove-btn" @click="remove(todo)">
                     <icon icon="trash-alt" size="2x" />
                 </button>
             </div>
             <div v-if="todo.description" class='line-2'>{{ todo.description }}</div>
         </li>
     </ul>
+    <ActionButton label="Add Todo item" :type="ActionButtonType.BOTTOM" @click="handleAdd"/>
+    <Overlay id="remove-overlay" :title="selectedTodoItem?.name">
+        <RemoveToDoItem :todoItem="selectedTodoItem" @OnCancel="handleOverlayClose" @onRemove="handleTodoItemRemoved" />
+    </Overlay>
+    <Overlay id="add-todo-overlay" title="Add new to do">Adding a new tag</Overlay>
 </template>
 
 <script lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, defineComponent } from 'vue'
 import { store } from '../store'
 import { TodoItem, TodoItemState } from '../store/store.types'
+import Overlay, { useOverlay } from './Overlay.vue'
+import RemoveToDoItem from './RemoveToDoItem.vue'
+import ActionButton, { ActionButtonType } from '../components/ActionButton.vue'
 
-export default {
-  setup() {
-    const list = ref<TodoItem[]>([
-      ...store.getters.waitingTodos,
-      ...store.getters.doneTodos,
-    ]);
-
-    const waitingTodosCount = ref<number>(store.getters.waitingTodos.length)
-    const doneTodosCount = ref<number>(store.getters.doneTodos.length)
-
-    watch(() => store.state.todos, () => {
-        waitingTodosCount.value = store.getters.waitingTodos.length
-        doneTodosCount.value = store.getters.doneTodos.length
-        if (list.value.length > 0) return
-        list.value = [
+export default defineComponent({
+    components: { Overlay, RemoveToDoItem, ActionButton },
+    setup() {
+        const list = ref<TodoItem[]>([
             ...store.getters.waitingTodos,
             ...store.getters.doneTodos,
-        ]
-    });
+        ]);
 
-    const remove = (todoId: string) => {
-      store.dispatch('removeTodoItem', todoId)
-        .then(() => {
-          const index = list.value.findIndex( (item: TodoItem) => item.id === todoId)
-          if (index >= 0) list.value.splice(index, 1)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
+        const waitingTodosCount = ref<number>(store.getters.waitingTodos.length);
+        const doneTodosCount = ref<number>(store.getters.doneTodos.length);
 
-    const setAsDone = (todoId: string) => {
-      store.dispatch('setTodoItemAsDone', todoId)
-        .catch((error) => {
-          console.log(error)
-        })
-    }
+        watch(() => store.state.todos, () => {
+            waitingTodosCount.value = store.getters.waitingTodos.length;
+            doneTodosCount.value = store.getters.doneTodos.length;
+            if (list.value.length > 0)
+                return;
+            list.value = [
+                ...store.getters.waitingTodos,
+                ...store.getters.doneTodos,
+            ];
+        });
 
-    const isDone = () => !list.value.find( (item: TodoItem) => item.state !== TodoItemState.DONE)
-  
-    return {
-      list,
-      TodoItemState,
-      remove,
-      setAsDone,
-      isDone,
-      waitingTodosCount,
-      doneTodosCount,
-    }
-  },
-}
+        const selectedTodoItem = ref<TodoItem>()
+
+        const [ openOverlay, closeOverlay ] = useOverlay();
+
+        const handleAdd = () => {
+            openOverlay('add-todo-overlay')
+        }
+
+        const remove = (todoItem: TodoItem) => {
+            selectedTodoItem.value = todoItem
+            openOverlay('remove-overlay')
+        };
+
+        const handleOverlayClose = () => {
+            closeOverlay('remove-overlay')
+        }
+
+        const handleTodoItemRemoved = (todoItemId: string) => {
+            const index = list.value.findIndex( (item: TodoItem) => item.id === todoItemId )
+            if (index >= 0) list.value.splice(index, 1)
+            closeOverlay('remove-overlay')
+        }
+
+        const setAsDone = (todoId: string) => {
+            store.dispatch("setTodoItemAsDone", todoId)
+                .catch((error) => {
+                    console.log(error)
+                });
+        };
+
+        const isDone = () => !list.value.find((item: TodoItem) => item.state !== TodoItemState.DONE);
+
+        return {
+            list,
+            TodoItemState,
+            remove,
+            setAsDone,
+            isDone,
+            waitingTodosCount,
+            doneTodosCount,
+            handleAdd,
+            handleOverlayClose,
+            handleTodoItemRemoved,
+            selectedTodoItem,
+            ActionButtonType,
+        };
+    },
+})
 </script>
 
 <style scoped>
@@ -146,7 +173,8 @@ export default {
   }
 
   .todo-list .do-btn {
-    color: #4C8577;
+    background-color: #4C8577;
+    color: #e5e8e9;
     border: 1px solid #4c8577;
     margin-left: -3rem;
     text-align: right;

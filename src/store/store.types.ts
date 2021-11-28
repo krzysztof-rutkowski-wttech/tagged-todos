@@ -13,9 +13,13 @@ export interface Tag {
   name: string,
 }
 
+export interface Overlay {
+  overlayId: string,
+  params?: Object;
+}
 export interface State {
   todos: TodoItem[],
   tags: Tag[],
   isLoading: boolean,
-  overlayOpened: boolean,
+  overlays: Overlay[],
 }

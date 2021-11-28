@@ -1,5 +1,5 @@
 <template>
-  <Overlay :title="tag?.name" returnPageName="tags">
+  <Overlay id="edit-tag" :title="tag?.name" @close="handleClose">
     <h1>Edit tag - {{ tag?.name }}</h1>
     <div>tag id: {{ tag?.id }}</div>
   </Overlay>
@@ -9,7 +9,8 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { store } from '../store'
-import Overlay from '../components/Overlay.vue'
+import router from '../router'
+import Overlay, { useOverlay } from '../components/Overlay.vue'
 
 export default {
   components: { Overlay },
@@ -18,10 +19,19 @@ export default {
     const tagId = route.params.tagId;
     const tag = computed(() => store.getters.getTagById(tagId))
 
+    const handleClose = () => {
+      router.push({ name: 'tags' })
+    }
+
     return {
-      tag
+      tag,
+      handleClose,
     }
   },
+  mounted() {
+    const [ openOverlay ] = useOverlay()
+    openOverlay('edit-tag')
+  }
 }
 </script>
 
