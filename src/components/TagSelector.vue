@@ -3,16 +3,17 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import ActionButton, { ActionButtonType } from './ActionButton.vue'
 
-export default {
+export default defineComponent({
   components: { ActionButton },
   setup() { 
     return {
         ActionButtonType
     }
   },
-}
+})
 </script>
 
 <style>

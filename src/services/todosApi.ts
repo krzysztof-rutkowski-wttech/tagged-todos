@@ -15,7 +15,7 @@ const tags = [
     { id: 'tag-3', name: 'food' },
 ]
 
-const apiCallMock = async <P extends TodoListData | TagsData | undefined>(mockResult?: P) => new Promise<ReturnStatus>(resolve => {
+const apiCallMock = async <P>(mockResult?: P) => new Promise<ReturnStatus<P>>(resolve => {
     store.state.isLoading = true;
     setTimeout(() => {
         store.state.isLoading = false;
@@ -26,24 +26,24 @@ const apiCallMock = async <P extends TodoListData | TagsData | undefined>(mockRe
     }, 500)
 })
 
-export const loadTodos = async (): Promise<ReturnStatus> => {
+export const loadTodos = async (): Promise<ReturnStatus<TodoListData>> => {
     return await apiCallMock<TodoListData>({ todos })
 //    return Promise.reject({ status: Status.ERROR, errorDescr: 'error loading todo items' })
 }
 
-export const loadTags = async (): Promise<ReturnStatus> => {
+export const loadTags = async (): Promise<ReturnStatus<TagsData>> => {
     //return Promise.resolve({ status: Status.OK, data: { tags } })
     return await apiCallMock<TagsData>({ tags })
     // return Promise.reject({ status: Status.ERROR, errorDescr: 'error loading todo items' })
 }
 
-export const deleteTodoItem = async (id: string): Promise<ReturnStatus> => {
+export const deleteTodoItem = async (id: string): Promise<ReturnStatus<void>> => {
     return await apiCallMock()
     // return Promise.reject({ status: Status.ERROR, errorDescr: 'error deleting item' })
 }
 
 
-export const updateTodoItemStatus = async (id: string, state: TodoItemState): Promise<ReturnStatus> => {
+export const updateTodoItemStatus = async (id: string, state: TodoItemState): Promise<ReturnStatus<void>> => {
     return await apiCallMock()
     // return Promise.reject({ status: Status.ERROR, errorDescr: 'error updating item' })
 }

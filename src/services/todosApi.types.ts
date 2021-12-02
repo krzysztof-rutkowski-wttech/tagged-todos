@@ -13,16 +13,12 @@ export enum Status {
     OK
 }
 
-export interface ReturnStatus {
+export interface ReturnStatus<DataType> {
     status: Status;
     errorDescr?: string;
-    data?: TodoListData | TagsData
+    data?: DataType;
 }
 
-export interface LoadTodoList extends ReturnStatus {
-    data: TodoListData
-}
+export type LoadTodoList = ReturnStatus<TodoListData>
 
-export interface LoadTagist extends ReturnStatus {
-    data: TagsData
-}
+export type LoadTagist = ReturnStatus<TagsData>

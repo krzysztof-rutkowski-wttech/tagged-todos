@@ -29,7 +29,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style scoped>
  .action-button.bottom {
    color: #D7DFE0;
    background-color: #c76d7e;

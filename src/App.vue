@@ -4,24 +4,15 @@
 </template>
 
 <script lang="ts">
-import { ref, watch } from 'vue'
 import { store } from './store'
 import useIsLoading from './utils/useIsLoading'
-import Overlay from './components/Overlay.vue'
 
 export default {
     setup() {
         const { isLoading } = useIsLoading()
-        const overlay = ref<Object | null>(null)
-
-        watch(() => store.state.overlays, (data) => {
-          console.log("value changes detected", data)
-          overlay.value = data
-        });
 
         return {
             isLoading,
-            overlay,
         };
     },
     mounted() {
@@ -30,7 +21,6 @@ export default {
             store.dispatch("loadTags"),
         ]);
     },
-    components: { Overlay }
 }
 </script>
 

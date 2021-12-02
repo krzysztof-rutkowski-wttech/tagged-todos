@@ -17,37 +17,43 @@
 </template>
 
 <script lang="ts">
-import { watch, ref } from 'vue'
+import { watch, ref, defineComponent } from 'vue'
 import { store } from '../store'
 import { Overlay } from '../store/store.types'
 
-export default {
+export default defineComponent({
   emits: [ 'close' ],
   props: {
-    id: String,
-    title: String,
+    id: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    }
   },
-  // @ts-ignore: Unreachable code error
-  setup(props, { emit }) {
+  setup({ id, title }, { emit }) {
     const isDisplayed = ref<boolean>(false)
 
     watch(() => store.state.overlays, (overlays: Overlay[]) => {
-      const overlay = overlays.find(o => o.overlayId === props.id)
+      const overlay = overlays.find(o => o.overlayId === id)
+
       isDisplayed.value = !!overlay;
     });
     
     const overlayClose = () => {
-      store.commit("removeOverlay", props.id)
+      store.commit("removeOverlay", id)
       emit('close')
     };
 
     return {
       overlayClose,
       isDisplayed,
-      title: props.title,
+      title: title,
     }
   }
-}
+})
 
 export const useOverlay = () => {
   const open = (overlayId: string, params?: Object) => {

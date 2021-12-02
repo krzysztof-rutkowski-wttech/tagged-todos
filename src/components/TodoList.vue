@@ -57,10 +57,14 @@ export default defineComponent({
             list.value = [
                 ...store.getters.waitingTodos,
                 ...store.getters.doneTodos,
-            ];
-        });
+            ]
+        })
 
-        const selectedTodoItem = ref<TodoItem>()
+        const selectedTodoItem = ref<TodoItem>({
+            id: '',
+            name: '',
+            state: TodoItemState.WAITING,
+        })
 
         const [ openOverlay, closeOverlay ] = useOverlay();
 
@@ -90,7 +94,7 @@ export default defineComponent({
                 });
         };
 
-        const isDone = () => !list.value.find((item: TodoItem) => item.state !== TodoItemState.DONE);
+        const isDone = () => !list.value.find((item: TodoItem) => item.state !== TodoItemState.DONE)
 
         return {
             list,

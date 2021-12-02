@@ -26,8 +26,7 @@ export const actions: ActionTree<State, State> & Actions = {
     async [ActionTypes.loadTodos] ({ commit }) {
       try {
         const { data } = await loadTodos()
-        // @ts-ignore: Unreachable code error
-        commit(MutationTypes.setTodos, data?.todos) 
+        commit(MutationTypes.setTodos, data?.todos ?? []) 
       } catch ({ errorDescr }) {
         console.log(errorDescr)
       }
@@ -36,8 +35,7 @@ export const actions: ActionTree<State, State> & Actions = {
     async [ActionTypes.loadTags] ({ commit }) {
       try {
         const { data } = await loadTags()
-        // @ts-ignore: Unreachable code error
-        commit(MutationTypes.setTags, data?.tags) 
+        commit(MutationTypes.setTags, data?.tags ?? [])
       } catch ({ errorDescr }) {
         console.log(errorDescr)
       }

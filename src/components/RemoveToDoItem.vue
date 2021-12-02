@@ -6,33 +6,36 @@
             <h2>?</h2>
         </div>
         <div class="buttons">
-            <button class="confirm" v-on:click="remove(todoItem?.id)">Yes</button>
+            <button class="confirm" v-on:click="remove">Yes</button>
             <button class="cancel" v-on:click="cancel">No</button>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { computed } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import { store } from '../store'
+import { TodoItem } from '../store/store.types'
 
-export default {
+export default defineComponent({
   emits: ['onCancel', 'onRemove'],
   props: {
-      todoItem: Object,
+      todoItem: {
+          type: Object as PropType<TodoItem>,
+          required: true,
+      }
   },
-  // @ts-ignore: Unreachable code error
   setup(props, { emit }) {
-    const todoItemId = props.todoItem?.id ?? '';
+    const todoItemId = props.todoItem.id
     const todoItem = computed(() => store.getters.getTodoItemById(todoItemId))
 
-    const remove = (todoId: string) => {
-      store.dispatch('removeTodoItem', todoId)
+    const remove = () => {
+      store.dispatch('removeTodoItem', todoItemId)
         .then(() => {
-          emit('onRemove', todoItemId)
+            emit('onRemove', todoItemId)
         })
         .catch((error) => {
-          console.log(error)
+            console.log(error)
         })
     }
 
@@ -44,7 +47,7 @@ export default {
       cancel,
     }
   },
-}
+})
 </script>
 
 <style scoped>

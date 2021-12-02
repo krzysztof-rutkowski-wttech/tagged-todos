@@ -12,9 +12,10 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
 import useIsLoading from '../utils/useIsLoading'
 
-export default {
+export default defineComponent({
   setup() {
     const { isLoading } = useIsLoading();
 
@@ -30,7 +31,7 @@ export default {
       { name: 'history', label: 'History' },
     ]
   } }
-}
+})
 </script>
 
 <style scoped>
