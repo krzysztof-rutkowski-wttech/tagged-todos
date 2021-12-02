@@ -29,21 +29,21 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
- .action-button.bottom {
-   color: #D7DFE0;
-   background-color: #c76d7e;
-   bottom: 0;
-   position: absolute;
-   text-align: center;
-   width: 100%;
-   font-size: 1.25rem;
-   font-weight: 600;
-   padding: 1rem 0;
-   cursor: pointer;
- }
-
- .action-button.top {
+<style lang="scss" scoped>
+ .action-button {
+   &.bottom {
+    color: #D7DFE0;
+    background-color: #c76d7e;
+    bottom: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding: 1rem 0;
+    cursor: pointer;
+  }
+   &.top {
     text-align: center;
     font-size: 1.5rem;
     padding: 0.75rem;
@@ -51,4 +51,5 @@ export default defineComponent({
     color: #4c8577;
     cursor: pointer;
   }
+ }
  </style>

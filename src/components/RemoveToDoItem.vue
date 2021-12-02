@@ -50,40 +50,38 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-    .container {
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+<style lang="scss" scoped>
+.container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-    .confirmation {
-        text-align: center;
-    }
-    .buttons {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 6rem;
-    }
+.confirmation {
+    text-align: center;
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 6rem;
+}
 
-    button {
-        height: 6rem;
-        width: 12rem;
-        border: 0;
-        background-color: transparent;
-        font-size: 3rem;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    button.confirm {
+button {
+    height: 6rem;
+    width: 12rem;
+    border: 0;
+    background-color: transparent;
+    font-size: 3rem;
+    font-weight: 600;
+    cursor: pointer;
+    &.confirm {
         color: #c76d7e;
     }
-
-    button.cancel{
+    &.cancel{
         color: #4C8577;
     }
+}
 </style>

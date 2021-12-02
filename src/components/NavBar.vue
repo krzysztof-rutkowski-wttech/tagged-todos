@@ -34,12 +34,10 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 nav {
   font-size: 1.125rem;
-}
-
-nav ul {
+  ul {
     list-style-type: none;
     display: flex;
     column-gap: 0.25rem;
@@ -47,20 +45,19 @@ nav ul {
     background-color: #4C8577;
     margin: 0;
     padding: 0;
+    li {
+      padding: 1rem 0;
+      a {
+        text-decoration: none;
+        color: #D7DFE0;
+        padding: 1rem;
+        &.router-link-active  {
+          background-color: #C76D7E;
+          color: #D7DFE0;
+        }
+      }
+    }
+  }
 }
 
-nav ul li {
-    padding: 1rem 0;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #D7DFE0;
-    padding: 1rem;
-}
-
-nav ul li a.router-link-active  {
-    background-color: #C76D7E;
-    color: #D7DFE0;
-}
 </style>

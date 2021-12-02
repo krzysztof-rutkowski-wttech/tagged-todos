@@ -114,7 +114,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   h2.header {
     text-align: center;
     font-size: 1.25rem;
@@ -135,74 +135,66 @@ export default defineComponent({
     font-size: 1.25rem;
   }
 
-  .todo-list li {
-    display: flex;
-    flex-direction: column;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #bbb;
-  }
-
-  .todo-list li:first-child {
-    border-top: 1px solid #bbb;
-  }
-
-  .todo-list .line-1 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .todo-list .line-2 {
-    margin-top: 1rem;
-  }
-
-  .todo-list .name {
-    flex-grow: 1;
-    margin: 0 1rem;
-    font-size: 1.75rem;
-    align-self: center;
-    padding-left: .75rem;
-
-  }
-
-  .todo-list button {
-    width: 7rem;
-    padding: 1.25rem 3rem;
-    cursor: pointer;
-    border-radius: 2rem;
-    background-color: #e5e8e9;
-    font-size: .875rem;
-    font-weight: 600;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  }
-
-  .todo-list .do-btn {
-    background-color: #4C8577;
-    color: #e5e8e9;
-    border: 1px solid #4c8577;
-    margin-left: -3rem;
-    text-align: right;
-    padding-right: 2rem;
-  }
-
-  .todo-list .remove-btn {
-    color: #c76d7e;
-    border: 1px solid #c76d7e;
-    margin-right: -3rem;
-    text-align: left;
-    padding-left: 1.75rem;
-    font-size: 0.75rem;
-  }
-
-  .todo-list .done .do-btn {
-    border: 1px solid #aaa;
-    cursor: unset;
-    background-color: #e5e8e9;
-    color: #aaa;
-  }
-
-  .todo-list .done {
-    color: #aaa;
-    background-color: #e5e8e9;
+  .todo-list {
+    li {
+      display: flex;
+      flex-direction: column;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #bbb;
+      &:first-child {
+        border-top: 1px solid #bbb;
+      }
+    }
+    .line-1 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .line-2 {
+      margin-top: 1rem;
+    }
+    .name {
+      flex-grow: 1;
+      margin: 0 1rem;
+      font-size: 1.75rem;
+      align-self: center;
+      padding-left: .75rem;
+    }
+    button {
+      width: 7rem;
+      padding: 1.25rem 3rem;
+      cursor: pointer;
+      border-radius: 2rem;
+      background-color: #e5e8e9;
+      font-size: .875rem;
+      font-weight: 600;
+      box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    }
+    .do-btn {
+      background-color: #4C8577;
+      color: #e5e8e9;
+      border: 1px solid #4c8577;
+      margin-left: -3rem;
+      text-align: right;
+      padding-right: 2rem;
+    }
+    .remove-btn {
+      color: #c76d7e;
+      border: 1px solid #c76d7e;
+      margin-right: -3rem;
+      text-align: left;
+      padding-left: 1.75rem;
+      font-size: 0.75rem;
+    }
+    .done {
+      color: #aaa;
+      background-color: #e5e8e9;
+      .do-btn {
+        border: 1px solid #aaa;
+        cursor: unset;
+        background-color: #e5e8e9;
+        color: #aaa;
+      }
+    }
   }
 </style>

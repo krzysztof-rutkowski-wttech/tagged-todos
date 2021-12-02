@@ -73,7 +73,7 @@ export const useOverlay = () => {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .overlay {
   position: absolute;
   top: 0;
@@ -82,29 +82,27 @@ export const useOverlay = () => {
   height: 100%;
   background-color: #e5e8e9;
 }
-
-nav ul {
-  list-style-type: none;
-  display: flex;
-  column-gap: 0.25rem;
-  font-weight: 600;
-  background-color: #E8EEEF;
-  margin: 0;
-  padding: 0;
+nav {
+  ul {
+    list-style-type: none;
+    display: flex;
+    column-gap: 0.25rem;
+    font-weight: 600;
+    background-color: #E8EEEF;
+    margin: 0;
+    padding: 0;
+    li {
+      padding: 1rem 0;
+      a {
+        text-decoration: none;
+        color: #AAA;
+        padding: 0 1.25rem;
+        margin: 0;
+        cursor: pointer;
+      }
+    }
+  }
 }
-
-nav ul li {
-    padding: 1rem 0;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #AAA;
-  padding: 0 1.25rem;
-  margin: 0;
-  cursor: pointer;
-}
-
 .title {
   color: #2E3138;
   font-size: 1.5rem;
