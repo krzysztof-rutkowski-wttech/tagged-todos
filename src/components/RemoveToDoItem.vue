@@ -21,8 +21,9 @@ export default {
   props: {
       todoItem: Object,
   },
+  // @ts-ignore: Unreachable code error
   setup(props, { emit }) {
-    const todoItemId = props.todoItem.id;
+    const todoItemId = props.todoItem?.id ?? '';
     const todoItem = computed(() => store.getters.getTodoItemById(todoItemId))
 
     const remove = (todoId: string) => {

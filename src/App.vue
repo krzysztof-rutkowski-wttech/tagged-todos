@@ -14,7 +14,7 @@ export default {
         const { isLoading } = useIsLoading()
         const overlay = ref<Object | null>(null)
 
-        watch(() => store.state.overlay, (data) => {
+        watch(() => store.state.overlays, (data) => {
           console.log("value changes detected", data)
           overlay.value = data
         });

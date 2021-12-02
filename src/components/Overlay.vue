@@ -27,6 +27,7 @@ export default {
     id: String,
     title: String,
   },
+  // @ts-ignore: Unreachable code error
   setup(props, { emit }) {
     const isDisplayed = ref<boolean>(false)
 
