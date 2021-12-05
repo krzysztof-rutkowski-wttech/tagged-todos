@@ -25,9 +25,11 @@
     </ul>
     <ActionButton label="Add Todo item" :type="ActionButtonType.BOTTOM" @click="handleAdd"/>
     <Overlay id="remove-overlay" :title="selectedTodoItem?.name">
-        <RemoveToDoItem :todoItem="selectedTodoItem" @OnCancel="handleOverlayClose" @onRemove="handleTodoItemRemoved" />
+        <RemoveToDoItem :todoItem="selectedTodoItem" @onCancel="handleOverlayClose" @onRemove="handleTodoItemRemoved" />
     </Overlay>
-    <Overlay id="add-todo-overlay" title="Add new to do">Adding a new tag</Overlay>
+    <Overlay id="add-todo-overlay" title="Add new to do">
+        <AddTodoItem @onAdded="handleAddedTodoItem"/>
+    </Overlay>
 </template>
 
 <script lang="ts">
@@ -37,23 +39,22 @@ import { TodoItem, TodoItemState } from '../store/store.types'
 import Overlay, { useOverlay } from './Overlay.vue'
 import RemoveToDoItem from './RemoveToDoItem.vue'
 import ActionButton, { ActionButtonType } from '../components/ActionButton.vue'
+import AddTodoItem from '../components/AddTodoItem.vue'
 
 export default defineComponent({
-    components: { Overlay, RemoveToDoItem, ActionButton },
+    components: { Overlay, RemoveToDoItem, ActionButton, AddTodoItem },
     setup() {
         const list = ref<TodoItem[]>([
             ...store.getters.waitingTodos,
             ...store.getters.doneTodos,
         ]);
 
-        const waitingTodosCount = ref<number>(store.getters.waitingTodos.length);
-        const doneTodosCount = ref<number>(store.getters.doneTodos.length);
+        const waitingTodosCount = ref<number>(store.getters.waitingTodos.length)
+        const doneTodosCount = ref<number>(store.getters.doneTodos.length)
 
         watch(() => store.state.todos, () => {
-            waitingTodosCount.value = store.getters.waitingTodos.length;
-            doneTodosCount.value = store.getters.doneTodos.length;
-            if (list.value.length > 0)
-                return;
+            waitingTodosCount.value = store.getters.waitingTodos.length
+            doneTodosCount.value = store.getters.doneTodos.length
             list.value = [
                 ...store.getters.waitingTodos,
                 ...store.getters.doneTodos,
@@ -87,6 +88,10 @@ export default defineComponent({
             closeOverlay('remove-overlay')
         }
 
+        const handleAddedTodoItem = () => {
+            closeOverlay('add-todo-overlay')
+        };
+
         const setAsDone = (todoId: string) => {
             store.dispatch("setTodoItemAsDone", todoId)
                 .catch((error) => {
@@ -107,6 +112,7 @@ export default defineComponent({
             handleAdd,
             handleOverlayClose,
             handleTodoItemRemoved,
+            handleAddedTodoItem,
             selectedTodoItem,
             ActionButtonType,
         };

@@ -1,5 +1,5 @@
-import { Status, ReturnStatus, TagsData, TodoListData } from './todosApi.types'
-import { TodoItemState, TodoItem } from '../store/store.types'
+import { Status, ReturnStatus, TagsData, TodoListData, addTodoItemFun } from './todosApi.types'
+import { TodoItemState, TodoItem, Tag } from '../store/store.types'
 import { store } from '../store'
 
 const todos: TodoItem[] = [
@@ -9,7 +9,7 @@ const todos: TodoItem[] = [
     { id: 'todo-4', name: 'soil flower', description: '', state: TodoItemState.DONE },
 ]
 
-const tags = [
+const tags: Tag[] = [
     { id: 'tag-1', name: 'gardening' },
     { id: 'tag-2', name: 'tools' },
     { id: 'tag-3', name: 'food' },
@@ -28,6 +28,16 @@ const apiCallMock = async <P>(mockResult?: P) => new Promise<ReturnStatus<P>>(re
 
 export const loadTodos = async (): Promise<ReturnStatus<TodoListData>> => {
     return await apiCallMock<TodoListData>({ todos })
+//    return Promise.reject({ status: Status.ERROR, errorDescr: 'error loading todo items' })
+}
+
+export const addTodoItem: addTodoItemFun = async ({ name, description }): Promise<ReturnStatus<TodoItem>> => {
+    return await apiCallMock<TodoItem>({
+        id: Math.ceil(Math.random()*1000000).toString(),
+        name,
+        description,
+        state: TodoItemState.WAITING
+    })
 //    return Promise.reject({ status: Status.ERROR, errorDescr: 'error loading todo items' })
 }
 

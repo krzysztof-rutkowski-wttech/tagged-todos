@@ -88,14 +88,14 @@ nav {
     display: flex;
     column-gap: 0.25rem;
     font-weight: 600;
-    background-color: #E8EEEF;
+    background-color: #9fc1b8;
     margin: 0;
     padding: 0;
     li {
       padding: 1rem 0;
       a {
         text-decoration: none;
-        color: #AAA;
+        color: #4C8577;
         padding: 0 1.25rem;
         margin: 0;
         cursor: pointer;
