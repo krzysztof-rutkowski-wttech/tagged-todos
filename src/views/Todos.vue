@@ -1,7 +1,8 @@
 <template>
-  <NavBar />
-  <tag-selector />
-  <todo-list />
+  <NavBar>
+    <tag-selector />
+    <todo-list />
+  </NavBar>
 </template>
 
 <script lang="ts">

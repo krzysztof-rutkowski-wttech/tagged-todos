@@ -1,7 +1,8 @@
 <template>
-  <NavBar />
-  <tag-list />
-  <action-button label="Add a new tag" :type="ActionButtonType.BOTTOM"/>
+  <NavBar>
+    <tag-list />
+    <action-button label="Add a new tag" :type="ActionButtonType.BOTTOM"/>
+  </NavBar>
 </template>
 
 <script lang="ts">

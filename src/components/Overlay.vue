@@ -1,19 +1,21 @@
 <template>
-  <div class="overlay" v-if="isDisplayed">
-    <nav>
-      <ul>
-        <li>
-          <a @click="overlayClose"><icon icon="angle-left" size="2x" /></a>
-        </li>
-        <li class="title">
-          <div>{{ title }}</div>
-        </li>
-      </ul>
-    </nav>
-    <div class="content">
-      <slot></slot>
+  <teleport to="#overlay-view">
+    <div class="overlay" v-if="isDisplayed">
+      <nav>
+        <ul>
+          <li>
+            <a @click="overlayClose"><icon icon="angle-left" size="2x" /></a>
+          </li>
+          <li class="title">
+            <div>{{ title }}</div>
+          </li>
+        </ul>
+      </nav>
+      <div class="content">
+        <slot></slot>
+      </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script lang="ts">
@@ -55,18 +57,12 @@ export default defineComponent({
   }
 })
 
-export const useOverlay = () => {
-  const open = (overlayId: string, params?: Object) => {
-    const overlay: Overlay = {
-      overlayId,
-      params
-    }
-    store.commit("addOverlay", overlay)
-  }
-
-  const close = (overlayId: string) => {
-    store.commit("removeOverlay", overlayId)
-  }
+export const useOverlay = (overlayId: string) => {
+  const open = (params?: Object) =>  store.commit("addOverlay", {
+    overlayId,
+    params,
+  })
+  const close = () => store.commit("removeOverlay", overlayId)
 
   return [ open, close ]
 }

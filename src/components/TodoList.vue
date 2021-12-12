@@ -23,7 +23,9 @@
             <div v-if="todo.description" class='line-2'>{{ todo.description }}</div>
         </li>
     </ul>
+
     <ActionButton label="Add Todo item" :type="ActionButtonType.BOTTOM" @click="handleAdd"/>
+
     <Overlay id="remove-overlay" :title="selectedTodoItem?.name">
         <RemoveToDoItem :todoItem="selectedTodoItem" @onCancel="handleOverlayClose" @onRemove="handleTodoItemRemoved" />
     </Overlay>
@@ -67,29 +69,30 @@ export default defineComponent({
             state: TodoItemState.WAITING,
         })
 
-        const [ openOverlay, closeOverlay ] = useOverlay();
+        const [ openAddTodoOverlay, closeAddTodoOverlay ] = useOverlay('add-todo-overlay');
+        const [ openRemoveConfirmOverlay, closeRemoveConfirmaOverlay ] = useOverlay('remove-overlay');
 
         const handleAdd = () => {
-            openOverlay('add-todo-overlay')
+            openAddTodoOverlay()
         }
 
         const remove = (todoItem: TodoItem) => {
             selectedTodoItem.value = todoItem
-            openOverlay('remove-overlay')
+            openRemoveConfirmOverlay()
         };
 
         const handleOverlayClose = () => {
-            closeOverlay('remove-overlay')
+            closeRemoveConfirmaOverlay()
         }
 
         const handleTodoItemRemoved = (todoItemId: string) => {
             const index = list.value.findIndex( (item: TodoItem) => item.id === todoItemId )
             if (index >= 0) list.value.splice(index, 1)
-            closeOverlay('remove-overlay')
+            closeRemoveConfirmaOverlay()
         }
 
         const handleAddedTodoItem = () => {
-            closeOverlay('add-todo-overlay')
+            closeAddTodoOverlay()
         };
 
         const setAsDone = (todoId: string) => {

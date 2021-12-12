@@ -1,18 +1,25 @@
 <template>
-  <router-view/>
+  <overlay-layout>
+    <router-view />
+  </overlay-layout>
+  <!-- <router-view /> -->
+  <!-- <overlay-view /> -->
+  <!-- <div id='overlay-view' /> -->
   <div v-show="isLoading" class="isLoading">please wait...</div>
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import { store } from './store'
 import useIsLoading from './utils/useIsLoading'
 
-export default {
+export default defineComponent({
     setup() {
         const { isLoading } = useIsLoading()
 
         return {
             isLoading,
+            
         };
     },
     mounted() {
@@ -21,7 +28,7 @@ export default {
             store.dispatch("loadTags"),
         ]);
     },
-}
+})
 </script>
 
 <style>
@@ -40,7 +47,7 @@ export default {
     align-items: center;
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     font-size: 3rem;

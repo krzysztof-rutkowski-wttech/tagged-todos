@@ -1,6 +1,7 @@
 <template>
-  <NavBar />
-  <h1>Todos history</h1>
+  <NavBar>
+    <h1>Todos history</h1>
+  </NavBar>
 </template>
 
 <script setup lang="ts">

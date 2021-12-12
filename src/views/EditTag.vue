@@ -29,8 +29,8 @@ export default {
     }
   },
   mounted() {
-    const [ openOverlay ] = useOverlay()
-    openOverlay('edit-tag')
+    const [ openOverlay ] = useOverlay('edit-tag')
+    openOverlay()
   }
 }
 </script>
