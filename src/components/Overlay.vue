@@ -104,7 +104,7 @@ nav {
   }
 }
 .title {
-  color: #2E3138;
+  color: #4C8577;
   font-size: 1.5rem;
   width: 100%;
   text-align: center;

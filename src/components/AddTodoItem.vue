@@ -1,13 +1,13 @@
 <template>
   <form class="form">
     <div class="errorMessage">{{ errorMessage }}</div>
-    <label for="todoItem-name">To do title:</label>
-    <input type="text" id="todoItem-name" v-model="todoItemName" placeholder="enter title"/>
-    <label for="todoItem-descriptione">Description:</label>
+    <label for="todoItem-name">Title</label>
+    <input type="text" id="todoItem-name" v-model="todoItemName" placeholder="enter title (required)"/>
+    <label for="todoItem-descriptione">Description</label>
     <textarea 
       id="todoItem-description" 
       maxlength="1024" 
-      placeholder="enter description (optional)"
+      placeholder="provide description (optional)"
       v-model="todoItemDescr"
     />
   </form>
@@ -44,7 +44,7 @@ export default defineComponent({
 
     const preValidation = () => {
       if (state.todoItemName.trim() === '') {
-        state.errorMessage = 'Title is empty. Please provide title.'
+        state.errorMessage = 'Title is empty. Please provide a title.'
         return false
       }
       state.errorMessage = ''
@@ -75,20 +75,23 @@ export default defineComponent({
      font-size: 1.5rem;
      font-weight: 600;
      margin: 0.5rem 0;
+     color: #4c8577;
    }
    input {
      height: 3rem;
      font-size: 1.5rem;
      padding: 0 1rem;
-     border: 1px solid #aaa;
      margin-bottom: 2rem;
+     border: 1px solid #9fc1b8;
+     background-color: #edf3f1;
    }
    textarea {
      margin-bottom: 2rem;
      font-size: 1.25rem;
      padding: 0.5rem 1rem;
      height: 20rem;
-     border: 1px solid #aaa;
+     border: 1px solid #9fc1b8;
+     background-color: #edf3f1;
      resize: none;
    }
    button {

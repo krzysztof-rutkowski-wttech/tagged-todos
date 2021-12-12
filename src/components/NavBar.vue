@@ -36,6 +36,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
   font-size: 1.125rem;
   ul {
     list-style-type: none;
