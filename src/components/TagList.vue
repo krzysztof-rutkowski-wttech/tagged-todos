@@ -22,8 +22,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
-import { store } from '../store'
-import { Tag } from '../store/store.types'
+import { store } from '@/store'
+import { Tag } from '@/store/store.types'
 
 export default defineComponent({
   setup() {
@@ -46,7 +46,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/colours.scss';
+@import '@styles/colours.scss';
 
   ul.list {
     display: flex;

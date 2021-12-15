@@ -10,8 +10,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { store } from './store'
-import useIsLoading from './utils/useIsLoading'
+import { store } from '@/store'
+import useIsLoading from '@/utils/useIsLoading'
 
 export default defineComponent({
     setup() {

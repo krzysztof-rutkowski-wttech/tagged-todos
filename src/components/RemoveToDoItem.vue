@@ -14,8 +14,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import { store } from '../store'
-import { TodoItem } from '../store/store.types'
+import { store } from '@/store'
+import { TodoItem } from '@/store/store.types'
 
 export default defineComponent({
     emits: ['onCancel', 'onRemove'],
@@ -51,7 +51,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/colours.scss';
+@import '@styles/colours.scss';
 
 .container {
     position: fixed;

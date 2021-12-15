@@ -20,8 +20,8 @@
 
 <script lang="ts">
 import { watch, ref, defineComponent } from 'vue'
-import { store } from '../store'
-import { Overlay } from '../store/store.types'
+import { store } from '@/store'
+import { Overlay } from '@/store/store.types'
 
 export default defineComponent({
   emits: [ 'close' ],
@@ -70,7 +70,7 @@ export const useOverlay = (overlayId: string) => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/colours.scss';
+@import '@styles/colours.scss';
 
 .overlay {
   position: absolute;

@@ -1,6 +1,6 @@
 import { GetterTree } from 'vuex'
-import { TodoItemState, TodoItem, Tag, State } from './store.types'
-import { GetterTypes, Getters } from './getter.types'
+import { TodoItemState, TodoItem, Tag, State } from '@/store/store.types'
+import { GetterTypes, Getters } from '@/store/getter.types'
 
 export const getters: GetterTree<State, State> & Getters = {
     [GetterTypes.waitingTodos] (state: State): TodoItem[] {

@@ -1,7 +1,7 @@
 import { MutationTree } from 'vuex'
-import { MutationTypes } from './mutation.types'
-import { State, TodoItemState, TodoItem, Tag, Overlay } from './store.types'
-import { Mutations } from './mutation.types'
+import { MutationTypes } from '@/store/mutation.types'
+import { State, TodoItemState, TodoItem, Tag, Overlay } from '@/store/store.types'
+import { Mutations } from '@/store/mutation.types'
 
 export const mutations: MutationTree<State> & Mutations = {
   [MutationTypes.setTodoItemAsDone] (state: State, todoId: string): void {

@@ -1,4 +1,4 @@
-import { TodoItem, Tag } from '../store/store.types'
+import { TodoItem, Tag } from '@/store/store.types'
 
 export enum Status {
     ERROR,

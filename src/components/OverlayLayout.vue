@@ -7,8 +7,8 @@
 
 <script lang="ts">
 import { watch, ref, defineComponent } from 'vue'
-import { store } from '../store'
-import { Overlay } from '../store/store.types'
+import { store } from '@/store'
+import { Overlay } from '@/store/store.types'
 
 export default defineComponent({
   setup() {

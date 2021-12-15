@@ -30,7 +30,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/colours.scss';
+@import '@styles/colours.scss';
 
  .action-button {
    &.bottom {

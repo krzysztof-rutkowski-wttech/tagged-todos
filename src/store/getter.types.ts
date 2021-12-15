@@ -1,4 +1,4 @@
-import { State, TodoItem, Tag } from './store.types'
+import { State, TodoItem, Tag } from '@/store/store.types'
 
 
 export enum GetterTypes {

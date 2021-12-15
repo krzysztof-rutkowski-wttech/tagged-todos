@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import useIsLoading from '../utils/useIsLoading'
+import useIsLoading from '@/utils/useIsLoading'
 
 export default defineComponent({
   setup() {
@@ -35,7 +35,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/colours.scss';
+@import '@styles/colours.scss';
 
 nav {
   position: fixed;

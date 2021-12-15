@@ -1,6 +1,6 @@
-import { Status, ReturnStatus, TagsData, TodoListData, addTodoItemFun } from './todosApi.types'
-import { TodoItemState, TodoItem, Tag } from '../store/store.types'
-import { store } from '../store'
+import { Status, ReturnStatus, TagsData, TodoListData, addTodoItemFun } from '@/services/todosApi.types'
+import { TodoItemState, TodoItem, Tag } from '@/store/store.types'
+import { store } from '@/store'
 
 const todos: TodoItem[] = [
     { id: 'todo-1', name: 'tomatoe', description: 'buy yellow tomatoe', state: TodoItemState.WAITING },
@@ -10,9 +10,9 @@ const todos: TodoItem[] = [
 ]
 
 const tags: Tag[] = [
-    { id: 'tag-1', name: 'gardening' },
-    { id: 'tag-2', name: 'tools' },
-    { id: 'tag-3', name: 'food' },
+    { id: 'tag-1', name: 'gardening', description: '' },
+    { id: 'tag-2', name: 'tools', description: '' },
+    { id: 'tag-3', name: 'food', description: '' },
 ]
 
 const apiCallMock = async <P>(mockResult?: P) => new Promise<ReturnStatus<P>>(resolve => {

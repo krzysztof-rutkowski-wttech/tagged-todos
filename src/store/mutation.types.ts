@@ -1,4 +1,4 @@
-import { State, TodoItem, Tag, Overlay } from './store.types'
+import { State, TodoItem, Tag, Overlay } from '@/store/store.types'
 
 export enum MutationTypes {
     setTodoItemAsDone = 'setTodoItemAsDone',

@@ -8,9 +8,9 @@
 <script lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { store } from '../store'
-import router from '../router'
-import Overlay, { useOverlay } from '../components/Overlay.vue'
+import { store } from '@/store'
+import router from '@/router'
+import Overlay, { useOverlay } from '@/components/Overlay.vue'
 
 export default {
   components: { Overlay },

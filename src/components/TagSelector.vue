@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import ActionButton, { ActionButtonType } from './ActionButton.vue'
+import ActionButton, { ActionButtonType } from '@/components/ActionButton.vue'
 
 export default defineComponent({
   components: { ActionButton },

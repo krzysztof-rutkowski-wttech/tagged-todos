@@ -36,12 +36,12 @@
 
 <script lang="ts">
 import { ref, watch, defineComponent } from 'vue'
-import { store } from '../store'
-import { TodoItem, TodoItemState } from '../store/store.types'
-import Overlay, { useOverlay } from './Overlay.vue'
+import { store } from '@/store'
+import { TodoItem, TodoItemState } from '@/store/store.types'
+import Overlay, { useOverlay } from '@/components/Overlay.vue'
 import RemoveToDoItem from './RemoveToDoItem.vue'
-import ActionButton, { ActionButtonType } from '../components/ActionButton.vue'
-import AddTodoItem from '../components/AddTodoItem.vue'
+import ActionButton, { ActionButtonType } from '@/components/ActionButton.vue'
+import AddTodoItem from '@/components/AddTodoItem.vue'
 
 export default defineComponent({
     components: { Overlay, RemoveToDoItem, ActionButton, AddTodoItem },
@@ -124,7 +124,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/colours.scss';
+@import '@styles/colours.scss';
 
 h2.header {
   text-align: center;
