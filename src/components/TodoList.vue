@@ -124,86 +124,88 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  h2.header {
-    text-align: center;
-    font-size: 1.25rem;
-  }
+@import '../styles/colours.scss';
 
-  .todo-count {
-    color: #c76d7e;
-  }
+h2.header {
+  text-align: center;
+  font-size: 1.25rem;
+}
 
-  .done-count {
-    color: #4C8577;
-  }
-  ul.todo-list {
+.todo-count {
+  color: $no-color;
+}
+
+.done-count {
+  color: $yes-color
+}
+ul.todo-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.todo-list {
+  li {
     display: flex;
     flex-direction: column;
-    padding: 0;
-    margin: 0;
-    font-size: 1.25rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid $list-item-divider;
+    &:first-child {
+      border-top: 1px solid $list-item-divider;
+    }
   }
-
-  .todo-list {
-    li {
-      display: flex;
-      flex-direction: column;
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid #bbb;
-      &:first-child {
-        border-top: 1px solid #bbb;
-      }
-    }
-    .line-1 {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-    .line-2 {
-      margin-top: 1rem;
-    }
-    .name {
-      flex-grow: 1;
-      margin: 0 1rem;
-      font-size: 1.75rem;
-      align-self: center;
-      padding-left: .75rem;
-    }
-    button {
-      width: 7rem;
-      padding: 1.25rem 3rem;
-      cursor: pointer;
-      border-radius: 2rem;
-      background-color: #e5e8e9;
-      font-size: .875rem;
-      font-weight: 600;
-      box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-    }
+  .line-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .line-2 {
+    margin-top: 1rem;
+  }
+  .name {
+    flex-grow: 1;
+    margin: 0 1rem;
+    font-size: 1.75rem;
+    align-self: center;
+    padding-left: .75rem;
+  }
+  button {
+    width: 7rem;
+    padding: 1.25rem 3rem;
+    cursor: pointer;
+    border-radius: 2rem;
+    font-size: .875rem;
+    font-weight: 600;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  }
+  .do-btn {
+    background-color: $side-button-background-1;
+    color: $side-button-color-1;
+    border: 1px solid $side-button-border-color-1;
+    margin-left: -3rem;
+    text-align: right;
+    padding-right: 2rem;
+  }
+  .remove-btn {
+    background-color: $side-button-background-2;
+    color: $side-button-color-2;
+    border: 1px solid $side-button-border-color-2;
+    margin-right: -3rem;
+    text-align: left;
+    padding-left: 1.75rem;
+    font-size: 0.75rem;
+  }
+  .done {
+    color: $list-item-grayed-color;
+    background-color: $list-item-grayed-background;
     .do-btn {
-      background-color: #4C8577;
-      color: #e5e8e9;
-      border: 1px solid #4c8577;
-      margin-left: -3rem;
-      text-align: right;
-      padding-right: 2rem;
-    }
-    .remove-btn {
-      color: #c76d7e;
-      border: 1px solid #c76d7e;
-      margin-right: -3rem;
-      text-align: left;
-      padding-left: 1.75rem;
-      font-size: 0.75rem;
-    }
-    .done {
-      color: #aaa;
-      background-color: #e5e8e9;
-      .do-btn {
-        border: 1px solid #aaa;
-        cursor: unset;
-        background-color: #e5e8e9;
-        color: #aaa;
-      }
+      border: 1px solid $side-button-border-color-geayed;
+      cursor: unset;
+      background-color: $side-button-background-grayed;
+      color: $side-button-color-grayed;
     }
   }
+}
 </style>

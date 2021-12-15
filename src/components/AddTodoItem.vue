@@ -67,42 +67,44 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
- .form {
-   display: flex;
-   flex-direction: column;
-   padding: 1rem 2rem;
-   label {
-     font-size: 1.5rem;
-     font-weight: 600;
-     margin: 0.5rem 0;
-     color: #4c8577;
-   }
-   input {
-     height: 3rem;
-     font-size: 1.5rem;
-     padding: 0 1rem;
-     margin-bottom: 2rem;
-     border: 1px solid #9fc1b8;
-     background-color: #edf3f1;
-   }
-   textarea {
-     margin-bottom: 2rem;
-     font-size: 1.25rem;
-     padding: 0.5rem 1rem;
-     height: 20rem;
-     border: 1px solid #9fc1b8;
-     background-color: #edf3f1;
-     resize: none;
-   }
-   button {
-     height: 2rem;
-   }
-   .errorMessage {
-     color: #c76d7e;
-     font-size: 1.25rem;
-     font-weight: 600;
-     height: 4rem;
-     text-align: center;
-   }
- }
+@import '../styles/colours.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  label {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+    color: $input-label-color;
+  }
+  input {
+    height: 3rem;
+    font-size: 1.5rem;
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid $input-border-color;
+    background-color: $input-background;
+  }
+  textarea {
+    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+    height: 20rem;
+    border: 1px solid $input-border-color;
+    background-color: $input-background;
+    resize: none;
+  }
+  button {
+    height: 2rem;
+  }
+  .errorMessage {
+    color: $error-color;
+    font-size: 1.25rem;
+    font-weight: 600;
+    height: 4rem;
+    text-align: center;
+  }
+}
 </style>

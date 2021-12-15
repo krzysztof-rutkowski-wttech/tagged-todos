@@ -30,10 +30,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/colours.scss';
+
  .action-button {
    &.bottom {
-    color: #D7DFE0;
-    background-color: #c76d7e;
+    color: $action-button-color-2;
+    background-color: $action-button-background-2;
     bottom: 0;
     position: fixed;
     text-align: center;
@@ -47,8 +49,8 @@ export default defineComponent({
     text-align: center;
     font-size: 1.5rem;
     padding: 0.75rem;
-    background-color: #9fc1b8;
-    color: #4c8577;
+    background-color: $action-button-background-1;
+    color: $action-button-color-1;
     cursor: pointer;
   }
  }

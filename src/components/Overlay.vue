@@ -70,13 +70,15 @@ export const useOverlay = (overlayId: string) => {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/colours.scss';
+
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #e5e8e9;
+  background-color: $overlay-container-background;
 }
 nav {
   ul {
@@ -84,14 +86,14 @@ nav {
     display: flex;
     column-gap: 0.25rem;
     font-weight: 600;
-    background-color: #9fc1b8;
+    background-color: $overlay-background;
     margin: 0;
     padding: 0;
     li {
       padding: 1rem 0;
       a {
         text-decoration: none;
-        color: #4C8577;
+        color: $overlay-back-icon;
         padding: 0 1.25rem;
         margin: 0;
         cursor: pointer;
@@ -100,13 +102,13 @@ nav {
   }
 }
 .title {
-  color: #4C8577;
+  color: $overlay-color;
   font-size: 1.5rem;
   width: 100%;
   text-align: center;
   margin-right: 3.5rem;
 }
 .content {
-  background-color: #D7DFE0;
+  background-color: $overlay-container-background;
 }
 </style>

@@ -21,7 +21,7 @@ export default defineComponent({
 
     return {
       isLoading
-    }    
+    }
   },
   data: () => { return {
     menuItems: [
@@ -35,6 +35,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/colours.scss';
+
 nav {
   position: fixed;
   top: 0;
@@ -45,7 +47,7 @@ nav {
     display: flex;
     column-gap: 0.25rem;
     font-weight: 600;
-    background-color: #4C8577;
+    background-color: $nav-background;
     margin: 0;
     padding: 0;
     height: 4rem;
@@ -53,11 +55,11 @@ nav {
       padding: 1.25rem 0;
       a {
         text-decoration: none;
-        color: #D7DFE0;
+        color: $nav-color;
         padding: 1rem;
         &.router-link-active  {
-          background-color: #C76D7E;
-          color: #D7DFE0;
+          background-color: $nav-background-selected;
+          color: $nav-color-selected;
           padding: 1.25rem 1rem;
         }
       }

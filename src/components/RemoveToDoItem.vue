@@ -18,39 +18,41 @@ import { store } from '../store'
 import { TodoItem } from '../store/store.types'
 
 export default defineComponent({
-  emits: ['onCancel', 'onRemove'],
-  props: {
-      todoItem: {
-          type: Object as PropType<TodoItem>,
-          required: true,
-      }
-  },
-  setup(props, { emit }) {
-    const todoItemId = props.todoItem.id
-    const todoItem = computed(() => store.getters.getTodoItemById(todoItemId))
+    emits: ['onCancel', 'onRemove'],
+    props: {
+        todoItem: {
+            type: Object as PropType<TodoItem>,
+            required: true,
+        }
+    },
+    setup(props, { emit }) {
+        const todoItemId = props.todoItem.id
+        const todoItem = computed(() => store.getters.getTodoItemById(todoItemId))
 
-    const remove = () => {
-      store.dispatch('removeTodoItem', todoItemId)
-        .then(() => {
-            emit('onRemove', todoItemId)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-    }
+        const remove = () => {
+            store.dispatch('removeTodoItem', todoItemId)
+                .then(() => {
+                    emit('onRemove', todoItemId)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
 
-    const cancel = () => emit('onCancel')
+        const cancel = () => emit('onCancel')
 
-    return {
-      todoItem,
-      remove,
-      cancel,
-    }
-  },
+        return {
+            todoItem,
+            remove,
+            cancel,
+        }
+    },
 })
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/colours.scss';
+
 .container {
     position: fixed;
     height: 100%;
@@ -78,10 +80,10 @@ button {
     font-weight: 600;
     cursor: pointer;
     &.confirm {
-        color: #c76d7e;
+        color: $dialog-confirm-color;
     }
     &.cancel{
-        color: #4C8577;
+        color: $dialog-abort-color;
     }
 }
 </style>

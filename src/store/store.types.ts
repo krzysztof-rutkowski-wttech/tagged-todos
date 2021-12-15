@@ -11,6 +11,7 @@ export interface TodoItem {
 export interface Tag {
   id: string,
   name: string,
+  description: string,
 }
 
 export interface Overlay {

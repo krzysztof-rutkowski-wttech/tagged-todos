@@ -1,0 +1,48 @@
+$base-color-1: #4c8577;
+$base-color-2: #c76d7e;
+$bright-color: #d7dfe0;
+$base-color-1-bright: #9fc1b8;
+$base-color-1-light: #edf3f1;
+$light-gray: #e5e8e9;
+$mid-gray: #aaa;
+$darker-gray: #bbb;
+
+$yes-color: $base-color-1;
+$no-color: $base-color-2;
+$error-color: $base-color-2;
+
+$overlay-background: $base-color-1-bright;
+$overlay-color: $base-color-1;
+$overlay-back-icon: $base-color-1;
+$overlay-container-background: $bright-color;
+
+$nav-background: $base-color-1;
+$nav-color: $bright-color;
+$nav-background-selected: $base-color-2;
+$nav-color-selected: $bright-color;
+
+$action-button-background-1: $base-color-1-bright;
+$action-button-color-1: $base-color-1;
+$action-button-background-2: $base-color-2;
+$action-button-color-2: $bright-color;
+
+$input-background: $base-color-1-light;
+$input-border-color: $base-color-1-bright;
+$input-label-color: $base-color-1;
+
+$dialog-confirm-color: $base-color-2;
+$dialog-abort-color: $base-color-1;
+
+$side-button-background-1: $base-color-1;
+$side-button-color-1: $base-color-1-light;
+$side-button-border-color-1: $base-color-1;
+$side-button-background-2: $base-color-1-light;
+$side-button-color-2: $base-color-2;
+$side-button-border-color-2: $base-color-2;
+$side-button-background-grayed: $light-gray;
+$side-button-color-grayed: $mid-gray;
+$side-button-border-color-geayed: $mid-gray;
+
+$list-item-grayed-background: $light-gray;
+$list-item-grayed-color: $mid-gray;
+$list-item-divider: $darker-gray;
