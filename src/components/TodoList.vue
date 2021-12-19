@@ -24,27 +24,26 @@
         </li>
     </ul>
 
-    <ActionButton label="Add Todo item" :type="ActionButtonType.BOTTOM" @click="handleAdd"/>
-
-    <Overlay id="remove-overlay" :title="selectedTodoItem?.name">
-        <RemoveToDoItem :todoItem="selectedTodoItem" @onCancel="handleOverlayClose" @onRemove="handleTodoItemRemoved" />
-    </Overlay>
-    <Overlay id="add-todo-overlay" title="Add new to do">
-        <AddTodoItem @onAdded="handleAddedTodoItem"/>
-    </Overlay>
+    <ActionButton label="Add Todo item" :type="ActionButtonType.BOTTOM" @click=" openAddTodoOverlay"/>
+    <RemoveTodoItemOverlay 
+      :title="selectedTodoItem?.name"
+      :todoItem="selectedTodoItem"
+      @onCancel="closeRemoveConfirmaOverlay"
+      @onRemove="handleTodoItemRemove"
+    />
+    <AddTodoItemOverlay title="Add new to do" @onAdded="handleAddedTodoItem"/>
 </template>
 
 <script lang="ts">
 import { ref, watch, defineComponent } from 'vue'
 import { store } from '@/store'
 import { TodoItem, TodoItemState } from '@/store/store.types'
-import Overlay, { useOverlay } from '@/components/Overlay.vue'
-import RemoveToDoItem from './RemoveToDoItem.vue'
+import RemoveTodoItemOverlay, { useRemoveTodoItemOverlay } from '@/components/overlays/RemoveTodoItemOverlay.vue'
+import AddTodoItemOverlay, { useAddTodoItemOverlay } from '@/components/overlays/AddTodoItemOverlay.vue'
 import ActionButton, { ActionButtonType } from '@/components/ActionButton.vue'
-import AddTodoItem from '@/components/AddTodoItem.vue'
 
 export default defineComponent({
-    components: { Overlay, RemoveToDoItem, ActionButton, AddTodoItem },
+    components: { ActionButton, AddTodoItemOverlay, RemoveTodoItemOverlay },
     setup() {
         const list = ref<TodoItem[]>([
             ...store.getters.waitingTodos,
@@ -69,23 +68,15 @@ export default defineComponent({
             state: TodoItemState.WAITING,
         })
 
-        const [ openAddTodoOverlay, closeAddTodoOverlay ] = useOverlay('add-todo-overlay');
-        const [ openRemoveConfirmOverlay, closeRemoveConfirmaOverlay ] = useOverlay('remove-overlay');
-
-        const handleAdd = () => {
-            openAddTodoOverlay()
-        }
+        const [ openAddTodoOverlay, closeAddTodoOverlay ] = useAddTodoItemOverlay();
+        const [ openRemoveConfirmOverlay, closeRemoveConfirmaOverlay ] = useRemoveTodoItemOverlay();
 
         const remove = (todoItem: TodoItem) => {
             selectedTodoItem.value = todoItem
             openRemoveConfirmOverlay()
         };
 
-        const handleOverlayClose = () => {
-            closeRemoveConfirmaOverlay()
-        }
-
-        const handleTodoItemRemoved = (todoItemId: string) => {
+        const handleTodoItemRemove = (todoItemId: string) => {
             const index = list.value.findIndex( (item: TodoItem) => item.id === todoItemId )
             if (index >= 0) list.value.splice(index, 1)
             closeRemoveConfirmaOverlay()
@@ -112,9 +103,9 @@ export default defineComponent({
             isDone,
             waitingTodosCount,
             doneTodosCount,
-            handleAdd,
-            handleOverlayClose,
-            handleTodoItemRemoved,
+            openAddTodoOverlay,
+            closeRemoveConfirmaOverlay,
+            handleTodoItemRemove,
             handleAddedTodoItem,
             selectedTodoItem,
             ActionButtonType,

@@ -10,7 +10,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { store } from '@/store'
 import router from '@/router'
-import Overlay, { useOverlay } from '@/components/Overlay.vue'
+import Overlay, { useOverlay } from '@/components/overlays/Overlay.vue'
 
 export default {
   components: { Overlay },
