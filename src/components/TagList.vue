@@ -1,10 +1,4 @@
 <template>
-  <!-- <ul>
-    <li v-for="tag in list" :key="tag.id">
-      <router-link :to="{ name: 'edit-tag', params: { tagId: tag.id } }"> {{ tag.name }}</router-link>
-    </li>
-  </ul> -->
-
   <ul class="list">
       <li v-for="tag in list" :key="tag.id">
           <div class='line-1'>
@@ -16,8 +10,6 @@
           <div v-if="tag.description" class='line-2'>{{ tag.description }}</div>
       </li>
   </ul>
-
-
 </template>
 
 <script lang="ts">
@@ -34,7 +26,6 @@ export default defineComponent({
     });
 
     const edit = (tag: Tag) => {
-
     }
 
     return {

@@ -6,7 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAngleLeft, faCheckCircle, faDotCircle, faPlayCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 // import {  } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import OverlayLayout from './components/OverlayLayout.vue'
+import OverlayLayout from './views/OverlayLayout.vue'
 
 library.add(faAngleLeft, faCheckCircle, faDotCircle, faPlayCircle, faTrashAlt)
 

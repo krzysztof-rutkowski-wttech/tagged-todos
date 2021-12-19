@@ -2,9 +2,6 @@
   <overlay-layout>
     <router-view />
   </overlay-layout>
-  <!-- <router-view /> -->
-  <!-- <overlay-view /> -->
-  <!-- <div id='overlay-view' /> -->
   <div v-show="isLoading" class="isLoading">please wait...</div>
 </template>
 

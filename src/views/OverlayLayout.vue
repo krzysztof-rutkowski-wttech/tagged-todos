@@ -19,7 +19,7 @@ export default defineComponent({
     });
     
     return {
-        isDisplayed
+        isDisplayed,
     }
   }
 })
