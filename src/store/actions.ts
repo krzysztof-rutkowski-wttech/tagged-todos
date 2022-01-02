@@ -45,6 +45,7 @@ export const actions: ActionTree<State, State> & Actions = {
       try {
         const { data } = await loadTags()
         commit(MutationTypes.setTags, data?.tags ?? [])
+        commit(MutationTypes.setTagTree, data?.tagTree ?? [])
       } catch ({ errorDescr }) {
         console.log(errorDescr)
       }

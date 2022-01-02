@@ -1,4 +1,4 @@
-import { TodoItem, Tag } from '@/store/store.types'
+import { TodoItem, Tag, TagNode } from '@/store/store.types'
 
 export enum Status {
     ERROR,
@@ -9,7 +9,8 @@ export interface TodoListData {
 }
 
 export interface TagsData {
-    tags: Tag[]
+    tags: Tag[],
+    tagTree: TagNode[],
 }
 
 export interface ReturnStatus<DataType> {

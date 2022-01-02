@@ -10,6 +10,7 @@ export const key: InjectionKey<Store<State>> = Symbol()
 const state: State = {
   todos: [],
   tags: [],
+  tagTree: [],
   isLoading: false,
   overlays: [],
 }

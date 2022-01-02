@@ -1,8 +1,59 @@
+<script lang="ts">
+import { defineComponent, ref, watch, computed } from 'vue'
+import { store } from '@/store'
+import { Tag, TagNode } from '@/store/store.types'
+
+export default defineComponent({
+  setup() {
+    const path = ref<string[]>([ ])
+    const currentNode = computed(() => {
+      let current: TagNode | undefined = store.state.tagTree[0];
+
+      path.value.forEach( tagId => {
+        current = current?.tags?.find(tagNode => tagNode.tagId === tagId)
+        if (!current) return []
+      } )
+
+      return current
+    })
+
+    const list = computed(() => {
+      return !currentNode.value?.tags
+        ? []
+        : currentNode.value.tags
+            .map( ({ tagId }) => store.state.tags.find(tag => tag.id === tagId) )
+            .filter( tag => tag !== undefined )
+            .sort( (a, b) => {
+              if (a.name == b.name) return 0
+              if (a.name > b.name) return 1
+              return -1
+            } )
+    })
+
+    const choose = (tag: Tag) => {
+      const selectedNode = currentNode.value.tags?.find( ({tagId}) => tagId === tag.id )
+
+      if (selectedNode?.tags) path.value.push(tag.id)
+    }
+
+    const edit = (tag: Tag) => {
+      console.log(tag)
+    }
+
+    return {
+      list,
+      choose,
+      edit,
+    }
+  },
+})
+</script>
+
 <template>
   <ul class="list">
       <li v-for="tag in list" :key="tag.id">
           <div class='line-1'>
-              <div class="name">{{ tag.name }}</div>
+              <div class="name" @click="choose(tag)">{{ tag.name }}</div>
               <button class="btn-right" @click="edit(tag)">
                   <icon icon="trash-alt" size="2x" />
               </button>
@@ -11,30 +62,6 @@
       </li>
   </ul>
 </template>
-
-<script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
-import { store } from '@/store'
-import { Tag } from '@/store/store.types'
-
-export default defineComponent({
-  setup() {
-    const list = ref<Tag[]>(store.state.tags);
-
-    watch(() => store.state.tags, () => {
-        list.value = store.state.tags
-    });
-
-    const edit = (tag: Tag) => {
-    }
-
-    return {
-      list,
-      edit,
-    }
-  },
-})
-</script>
 
 <style lang="scss" scoped>
 @import '@styles/colours.scss';

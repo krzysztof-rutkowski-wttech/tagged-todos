@@ -1,6 +1,6 @@
 import { MutationTree } from 'vuex'
 import { MutationTypes } from '@/store/mutation.types'
-import { State, TodoItemState, TodoItem, Tag, Overlay } from '@/store/store.types'
+import { State, TodoItemState, TodoItem, Tag, TagNode, Overlay } from '@/store/store.types'
 import { Mutations } from '@/store/mutation.types'
 
 export const mutations: MutationTree<State> & Mutations = {
@@ -32,6 +32,10 @@ export const mutations: MutationTree<State> & Mutations = {
 
   [MutationTypes.setTags] (state: State, data: Tag[]): void {
     state.tags = data;
+  },
+
+  [MutationTypes.setTagTree] (state: State, data: TagNode[]): void {
+    state.tagTree = data;
   },
 
   [MutationTypes.addOverlay] (state: State, overlay: Overlay): void {
