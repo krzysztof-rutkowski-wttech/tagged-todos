@@ -1,8 +1,3 @@
-<template>
-  <action-button label="Select tag..." :type="ActionButtonType.TOP" @click="openSelectTagOverlay"/>
-  <select-tag-overlay title="Select tag" @onSlected="handleTagSelected" />
-</template>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ActionButton, { ActionButtonType } from '@/components/ActionButton.vue'
@@ -25,6 +20,11 @@ export default defineComponent({
   },
 })
 </script>
+
+<template>
+  <action-button label="Select tag..." :type="ActionButtonType.TOP" @click="openSelectTagOverlay"/>
+  <select-tag-overlay title="Select tag" @onSlected="handleTagSelected" />
+</template>
 
 <style>
 </style>

@@ -1,37 +1,3 @@
-<template>
-    <h2 class="header">
-        <div v-if="isDone()">
-            <span class="done-count">Well done !</span>
-        </div>
-        <div v-else>
-            to do: <span class="todo-count">{{ waitingTodosCount }}</span> |
-            done: <span class="done-count">{{ doneTodosCount }}</span>
-        </div>
-    </h2>
-    <ul class="todo-list">
-        <li :class="[ todo.state === TodoItemState.DONE && 'done' ]" v-for="todo in list" :key="todo.id">
-            <div class='line-1'>
-                <button class="do-btn" @click="todo.state === TodoItemState.WAITING && setAsDone(todo.id)">
-                    <icon v-if="todo.state === TodoItemState.DONE" icon="check-circle" size="2x" />
-                    <icon v-if="todo.state === TodoItemState.WAITING" icon="play-circle" size="2x" />
-                </button>
-                <div class="name">{{ todo.name }}</div>
-                <button class="remove-btn" @click="remove(todo)">
-                    <icon icon="trash-alt" size="2x" />
-                </button>
-            </div>
-            <div v-if="todo.description" class='line-2'>{{ todo.description }}</div>
-        </li>
-    </ul>
-
-    <remove-todo-item-overlay 
-      :title="selectedTodoItem?.name"
-      :todoItem="selectedTodoItem"
-      @onCancel="closeRemoveConfirmaOverlay"
-      @onRemove="handleTodoItemRemove"
-    />
-</template>
-
 <script lang="ts">
 import { ref, watch, defineComponent } from 'vue'
 import { store } from '@/store'
@@ -101,6 +67,40 @@ export default defineComponent({
     },
 })
 </script>
+
+<template>
+    <h2 class="header">
+        <div v-if="isDone()">
+            <span class="done-count">Well done !</span>
+        </div>
+        <div v-else>
+            to do: <span class="todo-count">{{ waitingTodosCount }}</span> |
+            done: <span class="done-count">{{ doneTodosCount }}</span>
+        </div>
+    </h2>
+    <ul class="todo-list">
+        <li :class="[ todo.state === TodoItemState.DONE && 'done' ]" v-for="todo in list" :key="todo.id">
+            <div class='line-1'>
+                <button class="do-btn" @click="todo.state === TodoItemState.WAITING && setAsDone(todo.id)">
+                    <icon v-if="todo.state === TodoItemState.DONE" icon="check-circle" size="2x" />
+                    <icon v-if="todo.state === TodoItemState.WAITING" icon="play-circle" size="2x" />
+                </button>
+                <div class="name">{{ todo.name }}</div>
+                <button class="remove-btn" @click="remove(todo)">
+                    <icon icon="trash-alt" size="2x" />
+                </button>
+            </div>
+            <div v-if="todo.description" class='line-2'>{{ todo.description }}</div>
+        </li>
+    </ul>
+
+    <remove-todo-item-overlay 
+      :title="selectedTodoItem?.name"
+      :todoItem="selectedTodoItem"
+      @onCancel="closeRemoveConfirmaOverlay"
+      @onRemove="handleTodoItemRemove"
+    />
+</template>
 
 <style lang="scss" scoped>
 @import '@styles/colours.scss';

@@ -1,16 +1,18 @@
 <script lang="ts">
-import { defineComponent, ref, watch, computed } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { store } from '@/store'
 import { Tag, TagNode } from '@/store/store.types'
+import Breadcrumbs, { BreadcrumbItem } from '@/components/Breadcrumbs.vue'
 
 export default defineComponent({
+  components: { Breadcrumbs },
   setup() {
-    const path = ref<string[]>([ ])
+    const path = ref<Tag[]>([])
     const currentNode = computed(() => {
-      let current: TagNode | undefined = store.state.tagTree[0];
+      let current: TagNode | undefined = store.state.tagTree[0]
 
-      path.value.forEach( tagId => {
-        current = current?.tags?.find(tagNode => tagNode.tagId === tagId)
+      path.value.forEach( ({ id }) => {
+        current = current?.tags?.find(tagNode => tagNode.tagId === id)
         if (!current) return []
       } )
 
@@ -30,29 +32,39 @@ export default defineComponent({
             } )
     })
 
-    const choose = (tag: Tag) => {
+    const hasChildren = (tag: Tag) => {
       const selectedNode = currentNode.value.tags?.find( ({tagId}) => tagId === tag.id )
 
-      if (selectedNode?.tags) path.value.push(tag.id)
+      return !!selectedNode?.tags?.length
+    }
+
+    const choose = (tag: Tag) => {
+      if (hasChildren(tag)) path.value.push(tag)
     }
 
     const edit = (tag: Tag) => {
       console.log(tag)
     }
 
+    const breadcrumbItems = computed(() => path.value
+      .map( ({ id, name }) => ({ key: id, label: name }) ))
+
     return {
       list,
+      hasChildren,
       choose,
       edit,
+      breadcrumbItems,
     }
   },
 })
 </script>
 
 <template>
+  <breadcrumbs :items="breadcrumbItems" />
   <ul class="list">
       <li v-for="tag in list" :key="tag.id">
-          <div class='line-1'>
+          <div class='line-1' :class="[ hasChildren(tag) && 'has-children' ]">
               <div class="name" @click="choose(tag)">{{ tag.name }}</div>
               <button class="btn-right" @click="edit(tag)">
                   <icon icon="trash-alt" size="2x" />
@@ -88,6 +100,11 @@ export default defineComponent({
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      font-weight: 300;
+
+      &.has-children {
+        font-weight: 600;
+      }
     }
     .line-2 {
       margin-top: 1rem;

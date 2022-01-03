@@ -1,17 +1,3 @@
-<template>
-    <div class="container">
-        <div class="confirmation">
-            <h2>Do you want to remove</h2>
-            <h1>{{ todoItem?.name }}</h1>
-            <h2>?</h2>
-        </div>
-        <div class="buttons">
-            <button class="confirm" v-on:click="remove">Yes</button>
-            <button class="cancel" v-on:click="cancel">No</button>
-        </div>
-    </div>
-</template>
-
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
 import { store } from '@/store'
@@ -49,6 +35,20 @@ export default defineComponent({
     },
 })
 </script>
+
+<template>
+    <div class="container">
+        <div class="confirmation">
+            <h2>Do you want to remove</h2>
+            <h1>{{ todoItem?.name }}</h1>
+            <h2>?</h2>
+        </div>
+        <div class="buttons">
+            <button class="confirm" v-on:click="remove">Yes</button>
+            <button class="cancel" v-on:click="cancel">No</button>
+        </div>
+    </div>
+</template>
 
 <style lang="scss" scoped>
 @import '@styles/colours.scss';
