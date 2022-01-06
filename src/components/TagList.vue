@@ -2,10 +2,17 @@
 import { defineComponent, ref, computed } from 'vue'
 import { store } from '@/store'
 import { Tag, TagNode } from '@/store/store.types'
-import Breadcrumbs, { BreadcrumbItem } from '@/components/Breadcrumbs.vue'
+import Breadcrumbs from '@/components/Breadcrumbs.vue'
+import SideButton from '@/components/SideButton.vue'
 
 export default defineComponent({
-  components: { Breadcrumbs },
+  components: { Breadcrumbs, SideButton },
+  props: {
+    readOnly: {
+      type: Boolean,
+      required: false,
+    }
+  },
   setup() {
     const path = ref<Tag[]>([])
     const currentNode = computed(() => {
@@ -66,9 +73,12 @@ export default defineComponent({
       <li v-for="tag in list" :key="tag.id">
           <div class='line-1' :class="[ hasChildren(tag) && 'has-children' ]">
               <div class="name" @click="choose(tag)">{{ tag.name }}</div>
-              <button class="btn-right" @click="edit(tag)">
+              <side-button right color-secondary :onClick="() => edit(tag)">
+                <icon icon="trash-alt" size="2x" />
+              </side-button>
+              <!-- <button class="btn-right" @click="edit(tag)" v-if="!readOnly">
                   <icon icon="trash-alt" size="2x" />
-              </button>
+              </button> -->
           </div>
           <div v-if="tag.description" class='line-2'>{{ tag.description }}</div>
       </li>
@@ -115,25 +125,6 @@ export default defineComponent({
       font-size: 1.75rem;
       align-self: center;
       padding-left: .75rem;
-    }
-    button {
-      width: 7rem;
-      padding: 1.25rem 3rem;
-      cursor: pointer;
-      border-radius: 2rem;
-      font-size: .875rem;
-      font-weight: 600;
-      box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-
-      &.btn-right {
-        background-color: $side-button-background-2;
-        color: $side-button-color-2;
-        border: 1px solid $side-button-border-color-2;
-        margin-right: -3rem;
-        text-align: left;
-        padding-left: 1.75rem;
-        font-size: 0.75rem;
-      }
     }
   }
 </style>

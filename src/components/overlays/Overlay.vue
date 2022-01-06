@@ -1,23 +1,3 @@
-<template>
-  <teleport to="#overlay-view">
-    <div class="overlay" v-if="isDisplayed">
-      <nav>
-        <ul>
-          <li>
-            <a @click="overlayClose"><icon icon="angle-left" size="2x" /></a>
-          </li>
-          <li class="title">
-            <div>{{ title }}</div>
-          </li>
-        </ul>
-      </nav>
-      <div class="content">
-        <slot></slot>
-      </div>
-    </div>
-  </teleport>
-</template>
-
 <script lang="ts">
 import { watch, ref, defineComponent } from 'vue'
 import { store } from '@/store'
@@ -66,8 +46,27 @@ export const useOverlay = (overlayId: string) => {
 
   return [ open, close ]
 }
-
 </script>
+
+<template>
+  <teleport to="#overlay-view">
+    <div class="overlay" v-if="isDisplayed">
+      <nav>
+        <ul>
+          <li>
+            <a @click="overlayClose"><icon icon="angle-left" size="2x" /></a>
+          </li>
+          <li class="title">
+            <div>{{ title }}</div>
+          </li>
+        </ul>
+      </nav>
+      <div class="content">
+        <slot></slot>
+      </div>
+    </div>
+  </teleport>
+</template>
 
 <style lang="scss" scoped>
 @import '@styles/colours.scss';

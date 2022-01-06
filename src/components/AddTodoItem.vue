@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 import { store } from '@/store'
 import ActionButton, { ActionButtonType } from '@/components/ActionButton.vue'
 
@@ -56,7 +56,7 @@ export default defineComponent({
         add();
       }
     }
- 
+
     return {
       ...toRefs(state),
       ActionButtonType,

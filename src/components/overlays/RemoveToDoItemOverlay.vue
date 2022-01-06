@@ -11,7 +11,7 @@ import RemoveToDoItem from '@/components/RemoveToDoItem.vue'
 
 export default defineComponent({
     inheritAttrs: false,
-    props: [ 'title', 'selectedTodoItem'],
+    props: [ 'title', 'selectedTodoItem' ],
     components: { Overlay, RemoveToDoItem },
 });
 
@@ -19,6 +19,3 @@ export const useRemoveTodoItemOverlay = () => {
     return useOverlay('remove-todo-item-overlay')
 }
 </script>
-
-<style scoped>
-</style>

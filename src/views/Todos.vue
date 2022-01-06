@@ -1,12 +1,3 @@
-<template>
-  <NavBar>
-    <tag-selector />
-    <todo-list />
-    <action-button label="Add Todo item" :type="ActionButtonType.BOTTOM" @click="openAddTodoOverlay" />
-    <add-todo-item-overlay title="Add a new to do" @onAdded="handleAddedTodoItem" />
-  </NavBar>
-</template>
-
 <script lang="ts">
 import TodoList from '@/components/TodoList.vue'
 import TagSelector from '@/components/TagSelector.vue'
@@ -31,3 +22,12 @@ export default {
   }
 }
 </script>
+
+<template>
+  <NavBar>
+    <tag-selector />
+    <todo-list />
+    <action-button label="Add Todo item" :type="ActionButtonType.BOTTOM" @click="openAddTodoOverlay" />
+    <add-todo-item-overlay title="Add a new to do" @onAdded="handleAddedTodoItem" />
+  </NavBar>
+</template>

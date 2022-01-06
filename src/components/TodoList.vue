@@ -3,9 +3,10 @@ import { ref, watch, defineComponent } from 'vue'
 import { store } from '@/store'
 import { TodoItem, TodoItemState } from '@/store/store.types'
 import RemoveTodoItemOverlay, { useRemoveTodoItemOverlay } from '@/components/overlays/RemoveTodoItemOverlay.vue'
+import SideButton from '@/components/SideButton.vue'
 
 export default defineComponent({
-    components: { RemoveTodoItemOverlay },
+    components: { RemoveTodoItemOverlay, SideButton },
     setup() {
       const list = ref<TodoItem[]>([
         ...store.getters.waitingTodos,
@@ -81,14 +82,19 @@ export default defineComponent({
     <ul class="todo-list">
         <li :class="[ todo.state === TodoItemState.DONE && 'done' ]" v-for="todo in list" :key="todo.id">
             <div class='line-1'>
-                <button class="do-btn" @click="todo.state === TodoItemState.WAITING && setAsDone(todo.id)">
+                <side-button 
+                    left
+                    :color-primary="todo.state === TodoItemState.WAITING"
+                    :color-grayed="todo.state === TodoItemState.DONE"
+                    :onClick="() => todo.state === TodoItemState.WAITING && setAsDone(todo.id)"
+                >
                     <icon v-if="todo.state === TodoItemState.DONE" icon="check-circle" size="2x" />
                     <icon v-if="todo.state === TodoItemState.WAITING" icon="play-circle" size="2x" />
-                </button>
+                </side-button>
                 <div class="name">{{ todo.name }}</div>
-                <button class="remove-btn" @click="remove(todo)">
+                <side-button right color-secondary :onClick="() => remove(todo)">
                     <icon icon="trash-alt" size="2x" />
-                </button>
+                </side-button>
             </div>
             <div v-if="todo.description" class='line-2'>{{ todo.description }}</div>
         </li>
@@ -150,41 +156,9 @@ ul.todo-list {
     align-self: center;
     padding-left: .75rem;
   }
-  button {
-    width: 7rem;
-    padding: 1.25rem 3rem;
-    cursor: pointer;
-    border-radius: 2rem;
-    font-size: .875rem;
-    font-weight: 600;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  }
-  .do-btn {
-    background-color: $side-button-background-1;
-    color: $side-button-color-1;
-    border: 1px solid $side-button-border-color-1;
-    margin-left: -3rem;
-    text-align: right;
-    padding-right: 2rem;
-  }
-  .remove-btn {
-    background-color: $side-button-background-2;
-    color: $side-button-color-2;
-    border: 1px solid $side-button-border-color-2;
-    margin-right: -3rem;
-    text-align: left;
-    padding-left: 1.75rem;
-    font-size: 0.75rem;
-  }
   .done {
     color: $list-item-grayed-color;
     background-color: $list-item-grayed-background;
-    .do-btn {
-      border: 1px solid $side-button-border-color-geayed;
-      cursor: unset;
-      background-color: $side-button-background-grayed;
-      color: $side-button-color-grayed;
-    }
   }
 }
 </style>

@@ -13,24 +13,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import useIsLoading from '@/utils/useIsLoading'
 
 export default defineComponent({
-  setup() {
-    const { isLoading } = useIsLoading();
-
+  data: () => { 
     return {
-      isLoading
+      menuItems: [
+        { name: 'home', label: 'Home' },
+        { name: 'todos', label: 'Todo list' },
+        { name: 'tags', label: 'Tags' },
+        { name: 'history', label: 'History' },
+      ]
     }
-  },
-  data: () => { return {
-    menuItems: [
-      { name: 'home', label: 'Home' },
-      { name: 'todos', label: 'Todo list' },
-      { name: 'tags', label: 'Tags' },
-      { name: 'history', label: 'History' },
-    ]
-  } }
+  }
 })
 </script>
 
@@ -70,5 +64,4 @@ nav {
 .page-content {
   margin: 4rem 0;
 }
-
 </style>

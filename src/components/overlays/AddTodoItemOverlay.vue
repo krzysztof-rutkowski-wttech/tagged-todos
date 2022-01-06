@@ -19,6 +19,3 @@ export const useAddTodoItemOverlay = () => {
     return useOverlay('add-todo-overlay')
 }
 </script>
-
-<style scoped>
-</style>

@@ -25,6 +25,3 @@ export default defineComponent({
   <action-button label="Select tag..." :type="ActionButtonType.TOP" @click="openSelectTagOverlay"/>
   <select-tag-overlay title="Select tag" @onSlected="handleTagSelected" />
 </template>
-
-<style>
-</style>
