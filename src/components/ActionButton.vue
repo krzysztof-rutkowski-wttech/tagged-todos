@@ -1,7 +1,3 @@
-<template>
-    <div class="action-button" :class="type" v-on:click="handleClick">{{ label }}</div>
-</template>
-
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
@@ -14,20 +10,21 @@ export default defineComponent({
   },
   emits: ['click'],
   setup(props, { emit }) {
-    const label = ref(props.label)
-
     const handleClick = () => {
       emit('click')
     }
 
     return {
-        label,
         handleClick,
         type: props.type?.toLowerCase()
     }    
   },
 })
 </script>
+
+<template>
+    <div class="action-button" :class="type" v-on:click="handleClick">{{ label }}</div>
+</template>
 
 <style lang="scss" scoped>
 @import '@styles/colours.scss';

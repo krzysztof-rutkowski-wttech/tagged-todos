@@ -1,32 +1,31 @@
-<template>
-  <overlay-layout>
-    <router-view />
-  </overlay-layout>
-  <div v-show="isLoading" class="isLoading">please wait...</div>
-</template>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { store } from '@/store'
 import useIsLoading from '@/utils/useIsLoading'
 
 export default defineComponent({
-    setup() {
-        const { isLoading } = useIsLoading()
+  setup() {
+    const { isLoading } = useIsLoading()
 
-        return {
-            isLoading,
-            
-        };
-    },
-    mounted() {
-        Promise.all([
-            store.dispatch("loadTodos"),
-            store.dispatch("loadTags"),
-        ]);
-    },
+    return {
+      isLoading,
+    };
+  },
+  mounted() {
+    Promise.all([
+      store.dispatch("loadTodos"),
+      store.dispatch("loadTags"),
+    ]);
+  },
 })
 </script>
+
+<template>
+  <overlay-layout>
+    <router-view />
+  </overlay-layout>
+  <div v-show="isLoading" class="isLoading">please wait...</div>
+</template>
 
 <style>
   body {

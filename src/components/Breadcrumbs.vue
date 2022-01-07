@@ -24,6 +24,7 @@ export default defineComponent({
 @import '@styles/colours.scss';
 
   ul.beadcrumbs {
+    position: fixed;
     display: inline-flex;
     flex-direction: row;
     gap: 0.75rem;
@@ -34,9 +35,8 @@ export default defineComponent({
     background-color: $base-color-1-light;
     width: 100%;
     font-weight: 600;
-
-    li {
-
-    }
+  }
+  .beadcrumbs + ul {
+    padding-top: 10rem;
   }
 </style>

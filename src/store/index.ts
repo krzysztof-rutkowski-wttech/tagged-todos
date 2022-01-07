@@ -13,6 +13,7 @@ const state: State = {
   tagTree: [],
   isLoading: false,
   overlays: [],
+  selectedTag: undefined,
 }
 
 export const store = createStore<State>({

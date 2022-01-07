@@ -1,11 +1,3 @@
-<template>
-  <NavBar>
-    <tag-list />
-    <action-button label="Add Todo item" :type="ActionButtonType.BOTTOM" @click=" openAddTagOverlay" />
-    <add-tag-overlay title="Add a new tag" @onAdded="handleAddedTag" />
-  </NavBar>
-</template>
-
 <script lang="ts">
 import {ref } from 'vue'
 import { store } from '@/store'
@@ -33,3 +25,11 @@ export default {
   },
 }
 </script>
+
+<template>
+  <NavBar>
+    <tag-list />
+    <action-button label="Add Todo item" :type="ActionButtonType.BOTTOM" @click="openAddTagOverlay" />
+    <add-tag-overlay title="Add a new tag" @onAdded="handleAddedTag" />
+  </NavBar>
+</template>

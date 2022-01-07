@@ -25,21 +25,10 @@ export default defineComponent({
             required: false,
         },
         onClick: {
-            type: Object as PropType<(payload: MouseEvent) => void>,
+            type: Function as PropType<(payload: MouseEvent) => void>,
             required: false,
         }
     },
-    // props: [ 'left', 'right', 'onClick' ],
-    setup(props) {
-        const handleClick = () => {
-            console.log('handle', props.onClick)
-            if (props.onClick) props.onClick();
-        }
-
-        return {
-            handleClick,
-        }
-    }
 })
 </script>
 

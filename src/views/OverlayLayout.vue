@@ -1,10 +1,3 @@
-<template>
-    <div id="overlay-view" />
-    <div v-show="!isDisplayed">
-        <slot></slot>
-    </div>
-</template>
-
 <script lang="ts">
 import { watch, ref, defineComponent } from 'vue'
 import { store } from '@/store'
@@ -17,13 +10,17 @@ export default defineComponent({
     watch(() => store.state.overlays, (overlays: Overlay[]) => {
       isDisplayed.value = !!overlays.length;
     });
-    
+
     return {
-        isDisplayed,
+      isDisplayed,
     }
   }
 })
 </script>
 
-<style>
-</style>
+<template>
+  <div id="overlay-view" />
+  <div v-show="!isDisplayed">
+    <slot></slot>
+  </div>
+</template>

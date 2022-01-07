@@ -80,6 +80,11 @@ export const useOverlay = (overlayId: string) => {
   background-color: $overlay-container-background;
 }
 nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
   ul {
     list-style-type: none;
     display: flex;
@@ -108,6 +113,8 @@ nav {
   margin-right: 3.5rem;
 }
 .content {
+  padding-top: 4rem;
   background-color: $overlay-container-background;
+  overflow: hidden;
 }
 </style>

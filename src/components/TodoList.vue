@@ -1,29 +1,44 @@
 <script lang="ts">
-import { ref, watch, defineComponent } from 'vue'
+import { ref, watch, defineComponent, computed } from 'vue'
 import { store } from '@/store'
-import { TodoItem, TodoItemState } from '@/store/store.types'
+import { TagNode, TodoItem, TodoItemState } from '@/store/store.types'
 import RemoveTodoItemOverlay, { useRemoveTodoItemOverlay } from '@/components/overlays/RemoveTodoItemOverlay.vue'
 import SideButton from '@/components/SideButton.vue'
 
 export default defineComponent({
     components: { RemoveTodoItemOverlay, SideButton },
     setup() {
-      const list = ref<TodoItem[]>([
-        ...store.getters.waitingTodos,
-        ...store.getters.doneTodos,
-      ]);
-
       const waitingTodosCount = ref<number>(store.getters.waitingTodos.length)
       const doneTodosCount = ref<number>(store.getters.doneTodos.length)
 
-      watch(() => store.state.todos, () => {
-        waitingTodosCount.value = store.getters.waitingTodos.length
-        doneTodosCount.value = store.getters.doneTodos.length
-        list.value = [
-          ...store.getters.waitingTodos,
-          ...store.getters.doneTodos,
+      const fillAllowedTags = (searchedTagId: string, include: boolean, tagNode: TagNode, allowedTags: string[]) => {
+        tagNode?.tags && tagNode.tags.forEach(node => {
+          const keepInclude = include || (node.tagId === searchedTagId)
+          if (keepInclude) allowedTags.push(node.tagId)
+          fillAllowedTags(searchedTagId, keepInclude, node, allowedTags)
+        })
+      }
+
+      const getFilteredList = () => {
+        const selectedTag = store.state.selectedTag
+        const allowedTags: string[] = []
+
+        fillAllowedTags(selectedTag?.id ?? '', false, store.state.tagTree[0], allowedTags)
+
+        const filtered = [
+          ...store.state.todos
+            .filter(todo => todo.tags?.find(tag => allowedTags.includes(tag)))
         ]
-      })
+
+        return [
+          ...filtered.filter(todo => todo.state === TodoItemState.WAITING),
+          ...filtered.filter(todo => todo.state === TodoItemState.DONE),
+        ]
+      }
+
+      const list = computed(getFilteredList)
+
+      watch(() => store.state.selectedTag, getFilteredList)
 
       const selectedTodoItem = ref<TodoItem>({
         id: '',
@@ -36,7 +51,7 @@ export default defineComponent({
       const remove = (todoItem: TodoItem) => {
         selectedTodoItem.value = todoItem
         openRemoveConfirmOverlay()
-      };
+      }
 
       const handleTodoItemRemove = (todoItemId: string) => {
         const index = list.value.findIndex( (item: TodoItem) => item.id === todoItemId )
@@ -48,8 +63,8 @@ export default defineComponent({
         store.dispatch("setTodoItemAsDone", todoId)
           .catch((error) => {
             console.log(error)
-          });
-      };
+          })
+      }
 
       const isDone = () => !list.value.find((item: TodoItem) => item.state !== TodoItemState.DONE)
 
@@ -64,7 +79,7 @@ export default defineComponent({
         closeRemoveConfirmaOverlay,
         handleTodoItemRemove,
         selectedTodoItem,
-      };
+      }
     },
 })
 </script>
@@ -72,7 +87,7 @@ export default defineComponent({
 <template>
     <h2 class="header">
         <div v-if="isDone()">
-            <span class="done-count">Well done !</span>
+            <span v-if="list?.length" class="done-count">Well done !</span>
         </div>
         <div v-else>
             to do: <span class="todo-count">{{ waitingTodosCount }}</span> |

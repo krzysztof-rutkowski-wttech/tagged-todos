@@ -30,7 +30,7 @@ export const tagTree: TagNode[] = [
                     },
                     {
                         tagId: 'top-grocery',
-                        tags: [ { tagId: 'biedronka' }, { tagId: 'lidl' }, { tagId: 'spar'} ],
+                        tags: [ { tagId: 'biedronka' }, { tagId: 'lidl' }, { tagId: 'spar' } ],
                     },
                 ],
             },

@@ -7,6 +7,7 @@ export interface TodoItem {
   name: string,
   description?: string,
   state: TodoItemState,
+  tags?: string[],
 }
 
 export interface Tag {
@@ -36,4 +37,5 @@ export interface State {
   tagTree: TagNode[],
   isLoading: boolean,
   overlays: Overlay[],
+  selectedTag: Tag | undefined,
 }
