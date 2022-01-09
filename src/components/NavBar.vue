@@ -41,7 +41,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div v-if="isMobile && !menuCollapsed" class="transparent"></div>
+  <div v-if="isMobile && !menuCollapsed" class="transparent" @click="toggleMenu"></div>
   <nav :class="{ mobile: isMobile, desktop: !isMobile }">
     <ul>
       <li v-if="isMobile" class="bars">
@@ -122,11 +122,14 @@ nav {
         .menu-bars {
           padding: 1rem;
           color: $nav-color;
+          z-index: 1;
         }
         .menu-title {
           padding: 1rem;
           background-color: $nav-background;
           width: 100%;
+          text-align: center;
+          margin-left: -3rem;
         }
       }
     }

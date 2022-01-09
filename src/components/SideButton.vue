@@ -35,7 +35,7 @@ export default defineComponent({
 <template>
     <button 
         :class="{ left, right, 'color-grayed': colorGrayed, 'color-primary': colorPrimary, 'color-secondary': colorSecondary }" 
-        @click="onClick"
+        @click="(payload) => { payload.stopPropagation(); onClick && onClick(payload) }"
     >
         <slot />
     </button>

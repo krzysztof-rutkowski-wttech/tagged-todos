@@ -53,7 +53,7 @@ export default defineComponent({
       if (hasChildren(tag)) path.value.push(tag)
     }
 
-    const edit = (tag: Tag) => {
+    const edit = (payload: MouseEvent, tag: Tag) => {
       console.log(tag)
     }
 
@@ -77,8 +77,8 @@ export default defineComponent({
       <li v-for="tag in list" :key="tag.id" @click="select(tag)">
           <div class='line-1' :class="[ hasChildren(tag) && 'has-children' ]">
               <div class="name">{{ tag.name }}</div>
-              <side-button v-if="!readOnly" right color-secondary :onClick="() => edit(tag)">
-                  <icon icon="trash-alt" size="2x" />
+              <side-button v-if="!readOnly" right color-secondary :onClick="(payload) => edit(payload, tag)">
+                  <icon icon="edit" size="2x" />
               </side-button>
               <side-button v-if="readOnly" right color-primary :onClick="() => onChoose && onChoose(tag)">
                   <icon icon="check-circle" size="2x" />
@@ -131,10 +131,9 @@ ul.list {
   }
   .name {
     flex-grow: 1;
-    margin: 0 1rem;
+    margin: 0 .5rem;
     font-size: 1.75rem;
     align-self: center;
-    padding-left: .75rem;
   }
 }
 </style>

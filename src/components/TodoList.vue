@@ -169,7 +169,7 @@ ul.todo-list {
     margin: 0 1rem;
     font-size: 1.75rem;
     align-self: center;
-    padding-left: .75rem;
+    padding-left: .5rem;
   }
   .done {
     color: $list-item-grayed-color;

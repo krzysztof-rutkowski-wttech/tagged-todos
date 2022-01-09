@@ -29,7 +29,12 @@ export default defineComponent({
 </script>
 
 <template>
-  <action-button :class="{ 'tag-selected': selectedTagName }" :label="selectedTagName ?? 'Select tag...'" :type="ActionButtonType.TOP" @click="openSelectTagOverlay"/>
+  <action-button 
+    :class="{ 'tag-selected': selectedTagName }"
+    :label="selectedTagName ?? 'Select tag...'"
+    :type="ActionButtonType.TOP"
+    @click="openSelectTagOverlay"
+  />
   <select-tag-overlay title="Select tag" :onChoose="handleTagSelected" />
 </template>
 
