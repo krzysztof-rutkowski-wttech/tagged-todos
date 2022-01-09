@@ -72,11 +72,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <breadcrumbs :items="breadcrumbItems" />
+  <breadcrumbs class="position-fixed" :items="breadcrumbItems" />
   <ul class="list">
-      <li v-for="tag in list" :key="tag.id">
+      <li v-for="tag in list" :key="tag.id" @click="select(tag)">
           <div class='line-1' :class="[ hasChildren(tag) && 'has-children' ]">
-              <div class="name" @click="select(tag)">{{ tag.name }}</div>
+              <div class="name">{{ tag.name }}</div>
               <side-button v-if="!readOnly" right color-secondary :onClick="() => edit(tag)">
                   <icon icon="trash-alt" size="2x" />
               </side-button>
@@ -92,15 +92,21 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@styles/colours.scss';
 
+.position-fixed {
+  position: fixed;
+}
+
 ul.list {
   display: flex;
   flex-direction: column;
   padding: 0;
+  padding-top: 2.8rem;
   margin: 0;
   font-size: 1.25rem;
 }
 
 .list {
+  cursor: pointer;
   li {
     display: flex;
     flex-direction: column;
