@@ -1,15 +1,17 @@
 import { State, TodoItem, Tag, TagNode, Overlay } from '@/store/store.types'
 
 export enum MutationTypes {
-    setTodoItemAsDone = 'setTodoItemAsDone',
-    removeTodoItem = 'removeTodoItem',
-    setTodos = 'setTodos',
-    addTodoItem = 'addToDoItem',
-    setTags = 'setTags',
-    setTagTree = 'setTagTree',
-    addOverlay = 'addOverlay',
-    removeOverlay = 'removeOverlay',
-  }
+  setTodoItemAsDone = 'setTodoItemAsDone',
+  removeTodoItem = 'removeTodoItem',
+  setTodos = 'setTodos',
+  addTodoItem = 'addToDoItem',
+  setTags = 'setTags',
+  setTagTree = 'setTagTree',
+  addOverlay = 'addOverlay',
+  removeOverlay = 'removeOverlay',
+  setSelectedTag = 'setSelectedTag',
+  setSelectedTodoItem = 'setSelectedTodoItem',
+}
 
 export type Mutations = {
   [MutationTypes.setTodoItemAsDone] (state: State, todoId: string): void,
@@ -20,4 +22,6 @@ export type Mutations = {
   [MutationTypes.addOverlay] (state: State, overlay: Overlay): void,
   [MutationTypes.addTodoItem] (state: State, todoItem: TodoItem): void,
   [MutationTypes.removeOverlay] (state: State, overlayId: string): void,
+  [MutationTypes.setSelectedTag] (state: State, tag: Tag): void,
+  [MutationTypes.setSelectedTodoItem] (state: State, todoItem: TodoItem): void,
 }

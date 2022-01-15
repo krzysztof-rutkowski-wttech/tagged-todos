@@ -14,6 +14,7 @@ const state: State = {
   isLoading: false,
   overlays: [],
   selectedTag: undefined,
+  selectedTodoItem: undefined,
 }
 
 export const store = createStore<State>({

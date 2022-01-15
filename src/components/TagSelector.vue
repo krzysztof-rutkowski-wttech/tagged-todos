@@ -12,7 +12,7 @@ export default defineComponent({
     const selectedTagName = ref<string | undefined>(store.state.selectedTag?.name)
 
     const handleTagSelected = (tag: Tag) => {
-      store.state.selectedTag = tag
+      store.commit('setSelectedTag', tag)
       closeSelectTagOverlay()
     }
 

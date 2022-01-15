@@ -2,11 +2,16 @@
 import { ref, watch, defineComponent, computed } from 'vue'
 import { store } from '@/store'
 import { TagNode, TodoItem, TodoItemState } from '@/store/store.types'
-import RemoveTodoItemOverlay, { useRemoveTodoItemOverlay } from '@/components/overlays/RemoveTodoItemOverlay.vue'
 import SideButton from '@/components/SideButton.vue'
 
+const emptyTodoItem: TodoItem = {
+  id: '',
+  name: '',
+  state: TodoItemState.WAITING,
+}
+
 export default defineComponent({
-    components: { RemoveTodoItemOverlay, SideButton },
+    components: { SideButton },
     setup() {
       const waitingTodosCount = ref<number>(store.getters.waitingTodos.length)
       const doneTodosCount = ref<number>(store.getters.doneTodos.length)
@@ -40,23 +45,12 @@ export default defineComponent({
 
       watch(() => store.state.selectedTag, getFilteredList)
 
-      const selectedTodoItem = ref<TodoItem>({
-        id: '',
-        name: '',
-        state: TodoItemState.WAITING,
-      })
-
-      const [ openRemoveConfirmOverlay, closeRemoveConfirmaOverlay ] = useRemoveTodoItemOverlay()
-
-      const remove = (todoItem: TodoItem) => {
-        selectedTodoItem.value = todoItem
-        openRemoveConfirmOverlay()
-      }
-
-      const handleTodoItemRemove = (todoItemId: string) => {
-        const index = list.value.findIndex( (item: TodoItem) => item.id === todoItemId )
-        if (index >= 0) list.value.splice(index, 1)
-        closeRemoveConfirmaOverlay()
+      const toggleItemSelection = (todoItem: TodoItem) => {
+        if (store.state.selectedTodoItem?.id === todoItem.id) {
+          store.commit('setSelectedTodoItem', emptyTodoItem)
+        } else {
+          store.commit('setSelectedTodoItem', todoItem)
+        }
       }
 
       const setAsDone = (todoId: string) => {
@@ -71,56 +65,49 @@ export default defineComponent({
       return {
         list,
         TodoItemState,
-        remove,
         setAsDone,
         isDone,
         waitingTodosCount,
         doneTodosCount,
-        closeRemoveConfirmaOverlay,
-        handleTodoItemRemove,
-        selectedTodoItem,
+        toggleItemSelection,
+        store,
       }
     },
 })
 </script>
 
 <template>
-    <h2 class="header">
-        <div v-if="isDone()">
-            <span v-if="list?.length" class="done-count">Well done !</span>
-        </div>
-        <div v-else>
-            to do: <span class="todo-count">{{ waitingTodosCount }}</span> |
-            done: <span class="done-count">{{ doneTodosCount }}</span>
-        </div>
-    </h2>
-    <ul class="todo-list">
-        <li :class="[ todo.state === TodoItemState.DONE && 'done' ]" v-for="todo in list" :key="todo.id">
-            <div class='line-1'>
-                <side-button 
-                    left
-                    :color-primary="todo.state === TodoItemState.WAITING"
-                    :color-grayed="todo.state === TodoItemState.DONE"
-                    :onClick="() => todo.state === TodoItemState.WAITING && setAsDone(todo.id)"
-                >
-                    <icon v-if="todo.state === TodoItemState.DONE" icon="check-circle" size="2x" />
-                    <icon v-if="todo.state === TodoItemState.WAITING" icon="play-circle" size="2x" />
-                </side-button>
-                <div class="name">{{ todo.name }}</div>
-                <side-button right color-secondary :onClick="() => remove(todo)">
-                    <icon icon="trash-alt" size="2x" />
-                </side-button>
-            </div>
-            <div v-if="todo.description" class='line-2'>{{ todo.description }}</div>
-        </li>
-    </ul>
-
-    <remove-todo-item-overlay 
-      :title="selectedTodoItem?.name"
-      :todoItem="selectedTodoItem"
-      @onCancel="closeRemoveConfirmaOverlay"
-      @onRemove="handleTodoItemRemove"
-    />
+  <h2 class="header">
+    <div v-if="isDone()">
+      <span v-if="list?.length" class="done-count">Well done !</span>
+    </div>
+    <div v-else>
+      to do: <span class="todo-count">{{ waitingTodosCount }}</span> |
+      done: <span class="done-count">{{ doneTodosCount }}</span>
+    </div>
+  </h2>
+  <ul class="todo-list">
+    <li
+      :class="[ todo.state === TodoItemState.DONE && 'done', store.state.selectedTodoItem === todo && 'selected' ]"
+      :key="todo.id"
+      v-for="todo in list"
+      @click="() => toggleItemSelection(todo)"
+    >
+      <div class='line-1'>
+        <side-button 
+          left
+          :color-primary="todo.state === TodoItemState.WAITING"
+          :color-grayed="todo.state === TodoItemState.DONE"
+          :onClick="() => todo.state === TodoItemState.WAITING && setAsDone(todo.id)"
+        >
+          <icon v-if="todo.state === TodoItemState.DONE" icon="check-circle" size="2x" />
+          <icon v-if="todo.state === TodoItemState.WAITING" icon="play-circle" size="2x" />
+        </side-button>
+        <div class="name">{{ todo.name }}</div>
+      </div>
+      <div v-if="todo.description" class='line-2'>{{ todo.description }}</div>
+    </li>
+  </ul>
 </template>
 
 <style lang="scss" scoped>
@@ -154,6 +141,9 @@ ul.todo-list {
     border-bottom: 1px solid $list-item-divider;
     &:first-child {
       border-top: 1px solid $list-item-divider;
+    }
+    &.selected {
+      background-color: $list-item-selected-background;
     }
   }
   .line-1 {

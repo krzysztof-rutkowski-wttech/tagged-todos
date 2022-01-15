@@ -38,4 +38,5 @@ export interface State {
   isLoading: boolean,
   overlays: Overlay[],
   selectedTag: Tag | undefined,
+  selectedTodoItem: TodoItem | undefined,
 }

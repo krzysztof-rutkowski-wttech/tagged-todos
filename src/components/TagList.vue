@@ -33,8 +33,8 @@ export default defineComponent({
     const list = computed(() => {
       return !currentNode.value?.tags
         ? []
-        : currentNode.value.tags
-            .map( ({ tagId }) => store.state.tags.find(tag => tag.id === tagId) )
+        : currentNode.value.tags!
+            .map( ({ tagId }) => store.state.tags.find(tag => tag.id === tagId)! )
             .filter( tag => tag !== undefined )
             .sort( (a, b) => {
               if (a.name == b.name) return 0

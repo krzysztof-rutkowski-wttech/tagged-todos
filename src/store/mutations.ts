@@ -54,4 +54,12 @@ export const mutations: MutationTree<State> & Mutations = {
       state.overlays = overlays
     }
   },
+
+  [MutationTypes.setSelectedTag] (state: State, tag: Tag): void {
+    state.selectedTag = tag
+  },
+
+  [MutationTypes.setSelectedTodoItem] (state: State, todoItem: TodoItem): void {
+    state.selectedTodoItem = todoItem
+  },
 }

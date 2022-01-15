@@ -1,12 +1,18 @@
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 
 export enum ActionButtonType { TOP = 'TOP', BOTTOM ='BOTTOM' }
 
 export default defineComponent({
   props: {
-    label: String,
-    type: String
+    label: {
+      type: String,
+      required: false,
+    },
+    type: {
+      type: String,
+      required: true,
+    },
   },
   emits: ['click'],
   setup(props, { emit }) {
@@ -17,20 +23,27 @@ export default defineComponent({
     return {
         handleClick,
         type: props.type?.toLowerCase()
-    }    
+    }
   },
 })
 </script>
 
 <template>
-    <div class="action-button" :class="type" v-on:click="handleClick">{{ label }}</div>
+    <div class="action-button" :class="type" v-on:click="handleClick">
+      <template v-if="label">
+        {{ label }}
+      </template>
+      <slot v-else></slot>
+    </div>
 </template>
 
 <style lang="scss" scoped>
 @import '@styles/colours.scss';
 
- .action-button {
-   &.bottom {
+.action-button {
+  display: flex;
+  justify-content: center;
+  &.bottom {
     color: $action-button-color-2;
     background-color: $action-button-background-2;
     bottom: 0;
@@ -42,7 +55,7 @@ export default defineComponent({
     padding: 1rem 0;
     cursor: pointer;
   }
-   &.top {
+  &.top {
     text-align: center;
     font-size: 1.5rem;
     padding: 0.75rem;
@@ -50,5 +63,5 @@ export default defineComponent({
     color: $action-button-color-1;
     cursor: pointer;
   }
- }
- </style>
+}
+</style>
