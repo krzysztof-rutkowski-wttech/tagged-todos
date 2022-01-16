@@ -2,6 +2,7 @@
 import { defineComponent } from 'vue'
 import { store } from '@/store'
 import useIsLoading from '@/utils/useIsLoading'
+import { ActionTypes } from './store/action.types'
 
 export default defineComponent({
   setup() {
@@ -13,8 +14,8 @@ export default defineComponent({
   },
   mounted() {
     Promise.all([
-      store.dispatch("loadTodos"),
-      store.dispatch("loadTags"),
+      store.dispatch(ActionTypes.loadTodos),
+      store.dispatch(ActionTypes.loadTags),
     ]);
   },
 })

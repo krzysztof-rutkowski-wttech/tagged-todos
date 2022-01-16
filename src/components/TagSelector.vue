@@ -4,6 +4,7 @@ import ActionButton, { ActionButtonType } from '@/components/ActionButton.vue'
 import SelectTagOverlay, { useSelectTagOverlay } from '@/components/overlays/SelectTagOverlay.vue'
 import { store } from '@/store'
 import { Tag } from '@/store/store.types'
+import { MutationTypes } from '@/store/mutation.types'
 
 export default defineComponent({
   components: { ActionButton, SelectTagOverlay },
@@ -12,7 +13,7 @@ export default defineComponent({
     const selectedTagName = ref<string | undefined>(store.state.selectedTag?.name)
 
     const handleTagSelected = (tag: Tag) => {
-      store.commit('setSelectedTag', tag)
+      store.commit(MutationTypes.setSelectedTag, tag)
       closeSelectTagOverlay()
     }
 

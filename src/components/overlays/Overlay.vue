@@ -2,6 +2,7 @@
 import { watch, ref, defineComponent } from 'vue'
 import { store } from '@/store'
 import { Overlay } from '@/store/store.types'
+import { MutationTypes } from '@/store/mutation.types'
 
 export default defineComponent({
   emits: [ 'close' ],
@@ -25,7 +26,7 @@ export default defineComponent({
     });
     
     const overlayClose = () => {
-      store.commit("removeOverlay", id)
+      store.commit(MutationTypes.removeOverlay, id)
       emit('close')
     };
 
@@ -38,11 +39,11 @@ export default defineComponent({
 })
 
 export const useOverlay = (overlayId: string) => {
-  const open = (params?: Object) =>  store.commit("addOverlay", {
+  const open = (params?: Object) =>  store.commit(MutationTypes.addOverlay, {
     overlayId,
     params,
   })
-  const close = () => store.commit("removeOverlay", overlayId)
+  const close = () => store.commit(MutationTypes.removeOverlay, overlayId)
 
   return [ open, close ]
 }

@@ -28,7 +28,7 @@ export default {
 </script>
 
 <template>
-  <NavBar>
+  <nav-bar>
     <tag-list />
     <action-button :type="ActionButtonType.BOTTOM">
       <action-button-item @click="openAddTagOverlay">
@@ -36,5 +36,5 @@ export default {
       </action-button-item>
     </action-button>
     <add-tag-overlay title="Add a new tag" @onAdded="handleAddedTag" />
-  </NavBar>
+  </nav-bar>
 </template>

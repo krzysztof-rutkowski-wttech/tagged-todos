@@ -14,7 +14,7 @@ export const useAddTagOverlay = () => {
 </script>
 
 <template>
-    <Overlay id="add-tag-overlay" :title="title">
+    <overlay id="add-tag-overlay" :title="title">
         <div>adding tag</div>
-    </Overlay>
+    </overlay>
 </template>

@@ -3,6 +3,8 @@ import { ref, watch, defineComponent, computed } from 'vue'
 import { store } from '@/store'
 import { TagNode, TodoItem, TodoItemState } from '@/store/store.types'
 import SideButton from '@/components/SideButton.vue'
+import { MutationTypes } from '@/store/mutation.types'
+import { ActionTypes } from '@/store/action.types'
 
 const emptyTodoItem: TodoItem = {
   id: '',
@@ -47,15 +49,15 @@ export default defineComponent({
       watch(() => store.state.selectedTag, getFilteredList)
 
       const toggleItemSelection = (todoItem: TodoItem) => {
-        if (store.state.selectedTodoItem?.id === todoItem.id) {
-          store.commit('setSelectedTodoItem', emptyTodoItem)
-        } else {
-          store.commit('setSelectedTodoItem', todoItem)
-        }
+        store.commit(MutationTypes.setSelectedTodoItem, 
+          store.state.selectedTodoItem?.id === todoItem.id
+          ? emptyTodoItem
+          : todoItem
+        )
       }
 
       const setAsDone = (todoId: string) => {
-        store.dispatch("setTodoItemAsDone", todoId)
+        store.dispatch(ActionTypes.setTodoItemAsDone, todoId)
           .catch((error) => {
             console.log(error)
           })

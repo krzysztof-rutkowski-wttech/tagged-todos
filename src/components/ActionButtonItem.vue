@@ -16,7 +16,9 @@ export default defineComponent({
 </script>
 
 <template>
-    <div class="action-button-item" @click="handleClick"><slot></slot></div>
+    <div class="action-button-item" @click="handleClick">
+        <slot></slot>
+    </div>
 </template>
 
 <style lang="scss" scoped>

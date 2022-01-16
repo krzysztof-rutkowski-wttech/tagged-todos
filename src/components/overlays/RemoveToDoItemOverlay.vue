@@ -15,7 +15,7 @@ export const useRemoveTodoItemOverlay = () => {
 </script>
 
 <template>
-    <Overlay id="remove-todo-item-overlay" :title="title">
-        <RemoveToDoItem :todoItem="selectedTodoItem" v-bind="$attrs" />
-    </Overlay>
+    <overlay id="remove-todo-item-overlay" :title="title">
+        <remove-to-do-item :todoItem="selectedTodoItem" v-bind="$attrs" />
+    </overlay>
 </template>

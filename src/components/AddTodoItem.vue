@@ -5,6 +5,8 @@ import ActionButton, { ActionButtonType } from '@/components/ActionButton.vue'
 import Button from '@/components/Button.vue'
 import { Tag, TodoItem } from '@/store/store.types'
 import SelectTagOverlay, { useSelectTagOverlay } from './overlays/SelectTagOverlay.vue'
+import { NewTodoItemModel } from '@/services/model.types'
+import { ActionTypes } from '@/store/action.types'
 
 type State = {
   todoItemName: string,
@@ -25,11 +27,12 @@ export default defineComponent({
 
     const add = async () => {
       try {
-        await store.dispatch('addTodoItem', {
+        const newTodoItem: NewTodoItemModel = {
           name: state.todoItemName,
           description: state.todoItemDescr,
           tags: assignedTags.value.map(tag => tag.id)
-        })
+        }
+        await store.dispatch(ActionTypes.addTodoItem, newTodoItem)
         emit('onAdded')
       } catch (error) {
           state.errorMessages.push('Error storing a new todo item!')

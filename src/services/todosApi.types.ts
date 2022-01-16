@@ -1,17 +1,4 @@
-import { TodoItem, Tag, TagNode } from '@/store/store.types'
-
-export enum Status {
-    ERROR,
-    OK
-}
-export interface TodoListData {
-    todos: TodoItem[]
-}
-
-export interface TagsData {
-    tags: Tag[],
-    tagTree: TagNode[],
-}
+import { Status, TodoItemModel, TodoListModel, TagsModel } from '@/services/model.types'
 
 export interface ReturnStatus<DataType> {
     status: Status;
@@ -19,12 +6,12 @@ export interface ReturnStatus<DataType> {
     data?: DataType;
 }
 
-export type LoadTodoList = ReturnStatus<TodoListData>
+export type LoadTodoList = ReturnStatus<TodoListModel>
 
-export type LoadTagist = ReturnStatus<TagsData>
+export type LoadTagist = ReturnStatus<TagsModel>
 
 export type addTodoItemFun = (props: {
     name: string;
     description?: string;
     tags: string[];
-}) => Promise<ReturnStatus<TodoItem>>
+}) => Promise<ReturnStatus<TodoItemModel>>

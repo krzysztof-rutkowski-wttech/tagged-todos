@@ -15,7 +15,7 @@ export const useAddTodoItemOverlay = () => {
 </script>
 
 <template>
-    <Overlay id="add-todo-overlay" :title="title">
-        <AddTodoItem v-bind="$attrs"/>
-    </Overlay>
+    <overlay id="add-todo-overlay" :title="title">
+        <add-todo-item v-bind="$attrs"/>
+    </overlay>
 </template>

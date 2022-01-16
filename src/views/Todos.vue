@@ -9,6 +9,7 @@ import RemoveTodoItemOverlay, { useRemoveTodoItemOverlay } from '@/components/ov
 import ActionButton, { ActionButtonType } from '@/components/ActionButton.vue'
 import ActionButtonItem from '@/components/ActionButtonItem.vue'
 import { computed } from '@vue/reactivity'
+import { MutationTypes } from '@/store/mutation.types'
 
 export default defineComponent({
   components: { TodoList, TagSelector, NavBar, ActionButton, ActionButtonItem, AddTodoItemOverlay, RemoveTodoItemOverlay },
@@ -23,7 +24,7 @@ export default defineComponent({
 
     const removeTodo = () => {
       if (isSelected.value) {
-        store.commit('setSelectedTodoItem', store.state.selectedTodoItem)
+        store.commit(MutationTypes.setSelectedTodoItem, store.state.selectedTodoItem)
         openRemoveConfirmOverlay()
       }
     }
@@ -61,7 +62,7 @@ export default defineComponent({
       <action-button-item @click="removeTodo" v-if="isSelected"><icon icon="trash-alt" size="2x" /></action-button-item>
     </action-button>
     <add-todo-item-overlay
-      title="Add a new to do"
+      title="Add a new todo"
       @onAdded="handleAddedTodoItem"
     />
     <remove-todo-item-overlay

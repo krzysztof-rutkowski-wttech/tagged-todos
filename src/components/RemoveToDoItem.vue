@@ -2,6 +2,7 @@
 import { computed, defineComponent, PropType } from 'vue'
 import { store } from '@/store'
 import { TodoItem } from '@/store/store.types'
+import { ActionTypes } from '@/store/action.types'
 
 export default defineComponent({
     emits: ['onCancel', 'onRemove'],
@@ -16,7 +17,7 @@ export default defineComponent({
         const todoItem = computed(() => store.getters.getTodoItemById(todoItemId))
 
         const remove = () => {
-            store.dispatch('removeTodoItem', todoItemId)
+            store.dispatch(ActionTypes.removeTodoItem, todoItemId)
                 .then(() => {
                     emit('onRemove', todoItemId)
                 })

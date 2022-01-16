@@ -53,8 +53,8 @@ export default defineComponent({
       if (hasChildren(tag)) path.value.push(tag)
     }
 
-    const edit = (payload: MouseEvent, tag: Tag) => {
-      console.log(tag)
+    const edit = (mouseEvent: MouseEvent, tag: Tag) => {
+      console.log('edit tag', tag)
     }
 
     const breadcrumbItems = computed(() => path.value
@@ -77,7 +77,7 @@ export default defineComponent({
       <li v-for="tag in list" :key="tag.id" @click="select(tag)">
           <div class='line-1' :class="[ hasChildren(tag) && 'has-children' ]">
               <div class="name">{{ tag.name }}</div>
-              <side-button v-if="!readOnly" right color-secondary :onClick="(payload) => edit(payload, tag)">
+              <side-button v-if="!readOnly" right color-secondary :onClick="(mouseEvent) => edit(mouseEvent, tag)">
                   <icon icon="edit" size="2x" />
               </side-button>
               <side-button v-if="readOnly" right color-primary :onClick="() => onChoose && onChoose(tag)">

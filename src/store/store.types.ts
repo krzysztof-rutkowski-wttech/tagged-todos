@@ -1,21 +1,9 @@
+import { TagModel, TodoItemModel } from "@/services/model.types";
 
-export enum TodoItemState { WAITING, DONE }
-export enum TagType { TOP = 'top', 'NORMAL' = 'NORMAL' }
-
-export interface TodoItem {
-  id: string,
-  name: string,
-  description?: string,
-  state: TodoItemState,
-  tags: string[],
-}
-
-export interface Tag {
-  id: string,
-  name: string,
-  type: TagType,
-  description: string,
-}
+export enum TodoItemState { WAITING = 'WAITING', DONE = 'DONE' }
+export enum TagType { FIXED = 'FIXED', 'NORMAL' = 'NORMAL' }
+export type TodoItem = TodoItemModel
+export type Tag = TagModel
 
 export interface TagNode {
   tagId: string,

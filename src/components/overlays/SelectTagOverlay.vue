@@ -15,7 +15,7 @@ export const useSelectTagOverlay = () => {
 </script>
 
 <template>
-    <Overlay id="select-tag-overlay" :title="title">
+    <overlay id="select-tag-overlay" :title="title">
         <tag-list read-only :onChoose="onChoose"/>
-    </Overlay>
+    </overlay>
 </template>

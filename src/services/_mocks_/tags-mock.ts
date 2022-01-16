@@ -1,20 +1,20 @@
 import { Tag, TagType,TagNode } from '@/store/store.types'
 
-const { TOP, NORMAL } = TagType
+const { FIXED, NORMAL } = TagType
 
 export const tags: Tag[] = [
-    { id: 'top-shopping', name: 'Shopping', type: TOP, description: '' },
-    { id: 'top-tasks', name: 'Tasks to do', type: TOP, description: '' },
+    { id: 'fixed-shopping', name: 'Shopping', type: FIXED, description: '' },
+    { id: 'fixed-tasks', name: 'Tasks to do', type: FIXED, description: '' },
 
-    { id: 'top-tools', name: 'Tools', type: TOP, description: '' },
-    { id: 'top-grocery', name: 'Grocery', type: TOP, description: '' },
-    { id: 'top-gardening', name: 'Gardening', type: NORMAL, description: '' },
+    { id: 'fixed-tools', name: 'Tools', type: FIXED, description: '' },
+    { id: 'fixed-grocery', name: 'Grocery', type: FIXED, description: '' },
+    { id: 'fixed-gardening', name: 'Gardening', type: FIXED, description: '' },
 
-    { id: 'biedronka', name: 'Biedronka', type: TOP, description: 'grocery shop' },
-    { id: 'lidl', name: 'Lidl', type: TOP, description: 'grocery shop' },
-    { id: 'spar', name: 'Spar', type: TOP, description: 'grocery shop' },
-    { id: 'castorama', name: 'Castorama', type: TOP, description: '' },
-    { id: 'leroy-merlin', name: 'Leroy Merlin', type: TOP, description: '' },
+    { id: 'biedronka', name: 'Biedronka', type: FIXED, description: 'grocery shop' },
+    { id: 'lidl', name: 'Lidl', type: FIXED, description: 'grocery shop' },
+    { id: 'spar', name: 'Spar', type: FIXED, description: 'grocery shop' },
+    { id: 'castorama', name: 'Castorama', type: FIXED, description: '' },
+    { id: 'leroy-merlin', name: 'Leroy Merlin', type: FIXED, description: '' },
 ]
 
 export const tagTree: TagNode[] = [
@@ -22,25 +22,65 @@ export const tagTree: TagNode[] = [
         tagId: 'root',
         tags: [
             {
-                tagId: 'top-shopping', 
+                tagId: 'fixed-shopping', 
                 tags: [
                     {
-                        tagId: 'top-tools',
+                        tagId: 'fixed-tools',
                         tags: [ { tagId: 'castorama' }, { tagId: 'leroy merlin' } ],
                     },
                     {
-                        tagId: 'top-grocery',
+                        tagId: 'fixed-grocery',
                         tags: [ { tagId: 'biedronka' }, { tagId: 'lidl' }, { tagId: 'spar' } ],
                     },
                 ],
             },
             {
-                tagId: 'top-tasks',
+                tagId: 'fixed-tasks',
             },
             {
-                tagId: 'top-gardening',
+                tagId: 'fixed-gardening',
                 tags:[ { tagId: 'castorama' } ],
-            }
+            },
+
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
+            {
+                tagId: 'fixed-tasks',
+            },
         ],
     },
 ]
