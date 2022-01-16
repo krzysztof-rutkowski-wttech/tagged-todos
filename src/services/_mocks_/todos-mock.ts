@@ -20,11 +20,13 @@ export const todos: TodoItem[] = [
         name: 'hammer',
         description: '',
         state: TodoItemState.WAITING,
+        tags: [],
     },
     {
         id: 'todo-4',
         name: 'soil flower',
         description: '',
         state: TodoItemState.DONE,
+        tags: [],
     },
 ]

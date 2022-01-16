@@ -30,9 +30,9 @@ export default defineComponent({
 
 <template>
     <div class="action-button" :class="type" v-on:click="handleClick">
-      <template v-if="label">
+      <span v-if="label">
         {{ label }}
-      </template>
+      </span>
       <slot v-else></slot>
     </div>
 </template>
@@ -43,6 +43,8 @@ export default defineComponent({
 .action-button {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 4rem;
   &.bottom {
     color: $action-button-color-2;
     background-color: $action-button-background-2;
@@ -52,16 +54,17 @@ export default defineComponent({
     width: 100%;
     font-size: 1.25rem;
     font-weight: 600;
-    padding: 1rem 0;
     cursor: pointer;
   }
   &.top {
     text-align: center;
     font-size: 1.5rem;
-    padding: 0.75rem;
     background-color: $action-button-background-1;
     color: $action-button-color-1;
     cursor: pointer;
+  }
+  span {
+    font-size: 1.5rem;
   }
 }
 </style>

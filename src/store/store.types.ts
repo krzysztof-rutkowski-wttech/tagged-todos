@@ -7,7 +7,7 @@ export interface TodoItem {
   name: string,
   description?: string,
   state: TodoItemState,
-  tags?: string[],
+  tags: string[],
 }
 
 export interface Tag {

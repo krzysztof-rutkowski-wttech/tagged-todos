@@ -21,11 +21,12 @@ export const loadTodos = async (): Promise<ReturnStatus<TodoListData>> => {
 //    return Promise.reject({ status: Status.ERROR, errorDescr: 'error loading todo items' })
 }
 
-export const addTodoItem: addTodoItemFun = async ({ name, description }): Promise<ReturnStatus<TodoItem>> => {
+export const addTodoItem: addTodoItemFun = async ({ name, description, tags }): Promise<ReturnStatus<TodoItem>> => {
     return await apiCallMock<TodoItem>({
         id: Math.ceil(Math.random()*1000000).toString(),
         name,
         description,
+        tags,
         state: TodoItemState.WAITING
     })
 //    return Promise.reject({ status: Status.ERROR, errorDescr: 'error loading todo items' })

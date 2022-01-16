@@ -32,9 +32,9 @@ export const actions: ActionTree<State, State> & Actions = {
       }
     },
 
-    async [ActionTypes.addTodoItem] ({ commit }, { name, description }) {
+    async [ActionTypes.addTodoItem] ({ commit }, { name, description, tags }) {
       try {
-        const { data } = await addTodoItem({ name, description })       
+        const { data } = await addTodoItem({ name, description, tags })       
         if (data) commit(MutationTypes.addTodoItem, data)
       } catch ({ errorDescr }) {
         console.log(errorDescr)

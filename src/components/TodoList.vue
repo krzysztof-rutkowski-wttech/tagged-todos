@@ -8,6 +8,7 @@ const emptyTodoItem: TodoItem = {
   id: '',
   name: '',
   state: TodoItemState.WAITING,
+  tags: [],
 }
 
 export default defineComponent({
@@ -116,14 +117,17 @@ export default defineComponent({
 h2.header {
   text-align: center;
   font-size: 1.25rem;
+  font-weight: 400;
 }
 
 .todo-count {
   color: $no-color;
+  font-weight: 600;
 }
 
 .done-count {
-  color: $yes-color
+  color: $yes-color;
+  font-weight: 600;
 }
 ul.todo-list {
   display: flex;

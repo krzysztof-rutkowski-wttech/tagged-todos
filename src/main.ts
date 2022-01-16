@@ -12,12 +12,13 @@ import {
     faBars,
     faEdit,
     faPlusCircle,
+    faMinusCircle,
 } from '@fortawesome/free-solid-svg-icons'
 // import {  } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import OverlayLayout from './views/OverlayLayout.vue'
 
-library.add(faAngleLeft, faCheckCircle, faDotCircle, faPlayCircle, faTrashAlt, faBars, faEdit, faPlusCircle)
+library.add(faAngleLeft, faCheckCircle, faDotCircle, faPlayCircle, faTrashAlt, faBars, faEdit, faPlusCircle, faMinusCircle)
 
 createApp(App)
     .use(router)

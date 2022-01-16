@@ -20,6 +20,7 @@ type AugmentedActionContext = {
 interface AddTodoItemPayload { 
   name: string,
   description: string,
+  tags: string[],
 }
 
 export interface Actions {

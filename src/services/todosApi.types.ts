@@ -26,4 +26,5 @@ export type LoadTagist = ReturnStatus<TagsData>
 export type addTodoItemFun = (props: {
     name: string;
     description?: string;
+    tags: string[];
 }) => Promise<ReturnStatus<TodoItem>>

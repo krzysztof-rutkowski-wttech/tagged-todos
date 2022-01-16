@@ -24,5 +24,6 @@ export default defineComponent({
 
 .action-button-item {
     flex-grow: 1;
+    font-size: 1rem;
 }
 </style>
