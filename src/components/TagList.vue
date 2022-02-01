@@ -1,12 +1,24 @@
 <script lang="ts">
 import { defineComponent, ref, computed, PropType } from 'vue'
 import { store } from '@/store'
-import { Tag, TagNode } from '@/store/store.types'
+import { Tag, TagType, TagNode } from '@/store/store.types'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
 import SideButton from '@/components/SideButton.vue'
+import List from '@/components/List.vue'
+import { MutationTypes } from '@/store/mutation.types'
+
+const emptyTag: Tag = {
+  id: '',
+  name: '',
+  type: TagType.EMPTY,
+}
 
 export default defineComponent({
-  components: { Breadcrumbs, SideButton },
+  components: {
+    Breadcrumbs,
+    SideButton,
+    List,
+  },
   props: {
     readOnly: {
       type: Boolean,
@@ -50,7 +62,11 @@ export default defineComponent({
     }
 
     const select = (tag: Tag) => {
-      if (hasChildren(tag)) path.value.push(tag)
+      if (hasChildren(tag)) {
+        path.value.push(tag)
+        console.log('clear selection', tag)
+        store.commit(MutationTypes.setSelectedTag, emptyTag)
+      }
     }
 
     const edit = (mouseEvent: MouseEvent, tag: Tag) => {
@@ -60,12 +76,25 @@ export default defineComponent({
     const breadcrumbItems = computed(() => path.value
       .map( ({ id, name }) => ({ key: id, label: name }) ))
 
+    const selectHandler = (tag: Tag) => {
+      console.log('selectHandler', tag)
+      store.commit(MutationTypes.setSelectedTag, tag)
+    }
+
+    const deselectHandler = (tag: Tag) => {
+      console.log('deselectHandler', tag)
+      store.commit(MutationTypes.setSelectedTag, emptyTag)
+    }
+
+
     return {
       list,
       hasChildren,
       edit,
       select,
       breadcrumbItems,
+      selectHandler,
+      deselectHandler,
     }
   },
 })
@@ -73,7 +102,7 @@ export default defineComponent({
 
 <template>
   <breadcrumbs class="position-fixed" :items="breadcrumbItems" />
-  <ul class="list">
+  <!-- <ul class="list">
       <li v-for="tag in list" :key="tag.id" @click="select(tag)">
           <div class='line-1' :class="[ hasChildren(tag) && 'has-children' ]">
               <div class="name">{{ tag.name }}</div>
@@ -86,7 +115,17 @@ export default defineComponent({
           </div>
           <div v-if="tag.description" class='line-2'>{{ tag.description }}</div>
       </li>
-  </ul>
+  </ul> -->
+
+  <list 
+    :list="list"
+    key-prop="id"
+    label-prop="name"
+    @select="selectHandler"
+    @deselect="deselectHandler"
+    @dbClick="select"
+  >
+  </list>
 </template>
 
 <style lang="scss" scoped>

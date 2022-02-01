@@ -1,5 +1,5 @@
 export enum TodoItemState { WAITING = 'WAITING', DONE = 'DONE' }
-export enum TagType { FIXED = 'FIXED', 'NORMAL' = 'NORMAL' }
+export enum TagType { FIXED = 'FIXED', NORMAL = 'NORMAL', EMPTY = 'EMPTY' }
 
 export enum Status {
     ERROR,
@@ -24,7 +24,7 @@ export interface TagModel {
     id: string,
     name: string,
     type: TagType,
-    description: string,
+    description?: string,
 }
 
 export interface TagNodeMOdel {
