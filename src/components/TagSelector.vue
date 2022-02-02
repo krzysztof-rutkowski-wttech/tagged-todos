@@ -14,7 +14,7 @@ export default defineComponent({
 
     const handleTagSelected = (tag: Tag) => {
       store.commit(MutationTypes.setSelectedTag, tag)
-      console.log('handleTagSelected')
+      store.commit(MutationTypes.setSelectedTodoItem, undefined)
       closeSelectTagOverlay()
     }
 

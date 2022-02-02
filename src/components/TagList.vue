@@ -63,7 +63,6 @@ export default defineComponent({
         path.value.push(tag)
         selectedTag.value = emptyTag
         emit('onChangeSelection', emptyTag)
-        // store.commit(MutationTypes.setSelectedTag, emptyTag)
       }
     }
 
@@ -75,17 +74,14 @@ export default defineComponent({
       .map( ({ id, name }) => ({ key: id, label: name }) ))
 
     const selectHandler = (tag: Tag) => {
-      console.log('selectHandler', tag)
       selectedTag.value = tag
       emit('onChangeSelection', tag)
-      // store.commit(MutationTypes.setSelectedTag, tag)
     }
 
     const deselectHandler = (tag: Tag) => {
       console.log('deselectHandler', tag)
       selectedTag.value = emptyTag
       emit('onChangeSelection', emptyTag)
-      // store.commit(MutationTypes.setSelectedTag, emptyTag)
     }
 
 

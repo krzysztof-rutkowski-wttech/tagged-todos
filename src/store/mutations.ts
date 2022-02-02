@@ -30,6 +30,15 @@ export const mutations: MutationTree<State> & Mutations = {
     state.todos = [ ...state.todos, todoItem ]
   },
 
+  [MutationTypes.updateTodoItem] (state: State, todoItem: TodoItem): void {
+    const index = state.todos.findIndex(({ id }) => id === todoItem.id)
+    if (index >= 0) {
+      const newTodos = [ ...state.todos ]
+      newTodos[index] = todoItem
+      state.todos = newTodos
+    }
+  },
+
   [MutationTypes.setTags] (state: State, data: Tag[]): void {
     state.tags = data;
   },

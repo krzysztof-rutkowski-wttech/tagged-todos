@@ -1,7 +1,7 @@
 <script lang="ts">
-import { ref, watch, defineComponent, computed } from 'vue'
+import { watch, defineComponent, ref } from 'vue'
 import { store } from '@/store'
-import { TagNode, TodoItem, TodoItemState } from '@/store/store.types'
+import { Tag, TagNode, TodoItem, TodoItemState } from '@/store/store.types'
 import SideButton from '@/components/SideButton.vue'
 import { MutationTypes } from '@/store/mutation.types'
 import { ActionTypes } from '@/store/action.types'
@@ -15,10 +15,10 @@ const emptyTodoItem: TodoItem = {
 
 export default defineComponent({
     components: { SideButton },
-    setup() {
-      const waitingTodosCount = ref<number>(store.getters.waitingTodos.length)
-      const doneTodosCount = ref<number>(store.getters.doneTodos.length)
-
+    expose: [ 'list' ],
+    setup(_, { expose }) {
+      const filteredList = ref<TodoItem[]>([])
+      const list = ref<TodoItem[]>([])
       const fillAllowedTags = (searchedTagId: string, include: boolean, tagNode: TagNode, allowedTags: string[]) => {
         tagNode?.tags && tagNode.tags.forEach(node => {
           const keepInclude = include || (node.tagId === searchedTagId)
@@ -26,27 +26,28 @@ export default defineComponent({
           fillAllowedTags(searchedTagId, keepInclude, node, allowedTags)
         })
       }
+      const getOrderedList = () => (
+        [
+          ...filteredList.value.filter(todo => todo.state === TodoItemState.WAITING),
+          ...filteredList.value.filter(todo => todo.state === TodoItemState.DONE),
+        ]
+      )
 
-      const getFilteredList = () => {
-        const selectedTag = store.state.selectedTag
+      expose({ list })
+
+      const filterTodoListByTag = (tag: Tag) => {
         const allowedTags: string[] = []
 
-        fillAllowedTags(selectedTag?.id ?? '', false, store.state.tagTree[0], allowedTags)
+        fillAllowedTags(tag.id ?? '', false, store.state.tagTree[0], allowedTags)
 
-        const filtered = [
+        filteredList.value = [
           ...store.state.todos
             .filter(todo => todo.tags?.find(tag => allowedTags.includes(tag)))
         ]
-
-        return [
-          ...filtered.filter(todo => todo.state === TodoItemState.WAITING),
-          ...filtered.filter(todo => todo.state === TodoItemState.DONE),
-        ]
+        list.value = getOrderedList()
       }
 
-      const list = computed(getFilteredList)
-
-      watch(() => store.state.selectedTag, getFilteredList)
+      watch(() => store.state.selectedTag, () => filterTodoListByTag(store.state.selectedTag!))
 
       const toggleItemSelection = (todoItem: TodoItem) => {
         store.commit(MutationTypes.setSelectedTodoItem, 
@@ -58,20 +59,16 @@ export default defineComponent({
 
       const setAsDone = (todoId: string) => {
         store.dispatch(ActionTypes.setTodoItemAsDone, todoId)
+          .then(() => list.value = getOrderedList())
           .catch((error) => {
             console.log(error)
           })
       }
 
-      const isDone = () => !list.value.find((item: TodoItem) => item.state !== TodoItemState.DONE)
-
       return {
         list,
         TodoItemState,
         setAsDone,
-        isDone,
-        waitingTodosCount,
-        doneTodosCount,
         toggleItemSelection,
         store,
       }
@@ -80,15 +77,6 @@ export default defineComponent({
 </script>
 
 <template>
-  <h2 class="header">
-    <div v-if="isDone()">
-      <span v-if="list?.length" class="done-count">Well done !</span>
-    </div>
-    <div v-else>
-      to do: <span class="todo-count">{{ waitingTodosCount }}</span> |
-      done: <span class="done-count">{{ doneTodosCount }}</span>
-    </div>
-  </h2>
   <ul class="todo-list">
     <li
       :class="[ todo.state === TodoItemState.DONE && 'done', store.state.selectedTodoItem === todo && 'selected' ]"
@@ -116,21 +104,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@styles/colours.scss';
 
-h2.header {
-  text-align: center;
-  font-size: 1.25rem;
-  font-weight: 400;
-}
-
-.todo-count {
-  color: $no-color;
-  font-weight: 600;
-}
-
-.done-count {
-  color: $yes-color;
-  font-weight: 600;
-}
 ul.todo-list {
   display: flex;
   flex-direction: column;

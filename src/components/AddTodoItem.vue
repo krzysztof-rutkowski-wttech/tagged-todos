@@ -16,7 +16,7 @@ type State = {
 
 export default defineComponent({
   components: { ActionButton, Button, SelectTagOverlay },
-  emits: [ 'onAdded', 'onChanged' ],
+  emits: [ 'onAdded', 'onUpdated' ],
   props: {
     todoItem: {
       type: Object,
@@ -24,13 +24,13 @@ export default defineComponent({
     }
   },
   setup(props,  { emit }) {
-    const todoItem = props.todoItem as TodoItemModel
+    const isEdit = !!props.todoItem
     const state: State = reactive({
-      todoItemName: '',
-      todoItemDescr: '',
+      todoItemName: isEdit ? props.todoItem.name! : '',
+      todoItemDescr: isEdit ? props.todoItem.description! : '',
       errorMessages: [],
     })
-    const assignedTags = ref<string[]>(todoItem?.tags ?? [])
+    const assignedTags = ref<string[]>(props.todoItem?.tags ?? [])
 
     const add = async () => {
       try {
@@ -49,13 +49,16 @@ export default defineComponent({
 
     const edit = async () => {
       try {
-        const todoItem: NewTodoItemModel = {
+        const todoItem: TodoItemModel = {
+          id: props.todoItem!.id,
+          state: props.todoItem!.state,
           name: state.todoItemName,
           description: state.todoItemDescr,
-          tags: assignedTags.value
+          tags: assignedTags.value,
         }
-        await store.dispatch(ActionTypes.addTodoItem, todoItem)
-        emit('onChanged')
+        await store.dispatch(ActionTypes.updateTodoItem, todoItem)
+        console.log('EDIT', todoItem)
+        emit('onUpdated')
       } catch (error) {
           state.errorMessages.push('Error storing updated todo item!')
           console.log(error)
@@ -83,7 +86,11 @@ export default defineComponent({
 
     const handleAdd = () => {
       if (preValidation()) {
-        add()
+        if (isEdit) {
+          edit()
+        } else {
+          add()
+        }
       }
     }
 
@@ -152,7 +159,9 @@ export default defineComponent({
       <span>Assign tag</span>
     </Button>
   </form>
-  <action-button label="Add" :type="ActionButtonType.BOTTOM" @click="handleAdd"/>
+  <action-button :type="ActionButtonType.BOTTOM" @click="handleAdd">
+    <icon icon="check-circle" size="2x" />
+  </action-button>
   <select-tag-overlay title="Select tag" @onChoose="handleTagSelected" />
 </template>
 
@@ -189,6 +198,7 @@ export default defineComponent({
   }
   button {
     height: 2rem;
+    cursor: pointer;
   }
   .errorMessage {
     color: $error-color;
@@ -210,6 +220,7 @@ export default defineComponent({
     .side-button {
       font-size: 2rem;
       padding: .5rem 1.25rem;
+      cursor: pointer;
     }
   }
 
