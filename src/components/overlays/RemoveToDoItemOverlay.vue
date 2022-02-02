@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Overlay, { useOverlay } from '@/components/overlays/Overlay.vue'
-import RemoveToDoItem from '@/components/RemoveToDoItem.vue'
+import RemoveToDoItem from '@/components/RemoveTodoItem.vue'
 
 export default defineComponent({
     inheritAttrs: false,

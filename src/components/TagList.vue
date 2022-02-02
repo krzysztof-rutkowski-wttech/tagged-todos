@@ -1,11 +1,10 @@
 <script lang="ts">
-import { defineComponent, ref, computed, PropType } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { store } from '@/store'
 import { Tag, TagType, TagNode } from '@/store/store.types'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
 import SideButton from '@/components/SideButton.vue'
 import List from '@/components/List.vue'
-import { MutationTypes } from '@/store/mutation.types'
 
 const emptyTag: Tag = {
   id: '',
@@ -19,17 +18,14 @@ export default defineComponent({
     SideButton,
     List,
   },
+  emits: ['onChangeSelection'],
   props: {
     readOnly: {
       type: Boolean,
       required: false,
     },
-    onChoose: {
-      type: Function as PropType<(tag: Tag | undefined) => void>,
-      required: false,
-    },
   },
-  setup() {
+  setup(_, { emit }) {
     const path = ref<Tag[]>([])
     const currentNode = computed(() => {
       let current: TagNode | undefined = store.state.tagTree[0]
@@ -41,6 +37,7 @@ export default defineComponent({
 
       return current
     })
+    const selectedTag = ref<Tag>()
 
     const list = computed(() => {
       return !currentNode.value?.tags
@@ -64,8 +61,9 @@ export default defineComponent({
     const select = (tag: Tag) => {
       if (hasChildren(tag)) {
         path.value.push(tag)
-        console.log('clear selection', tag)
-        store.commit(MutationTypes.setSelectedTag, emptyTag)
+        selectedTag.value = emptyTag
+        emit('onChangeSelection', emptyTag)
+        // store.commit(MutationTypes.setSelectedTag, emptyTag)
       }
     }
 
@@ -78,12 +76,16 @@ export default defineComponent({
 
     const selectHandler = (tag: Tag) => {
       console.log('selectHandler', tag)
-      store.commit(MutationTypes.setSelectedTag, tag)
+      selectedTag.value = tag
+      emit('onChangeSelection', tag)
+      // store.commit(MutationTypes.setSelectedTag, tag)
     }
 
     const deselectHandler = (tag: Tag) => {
       console.log('deselectHandler', tag)
-      store.commit(MutationTypes.setSelectedTag, emptyTag)
+      selectedTag.value = emptyTag
+      emit('onChangeSelection', emptyTag)
+      // store.commit(MutationTypes.setSelectedTag, emptyTag)
     }
 
 
@@ -102,21 +104,6 @@ export default defineComponent({
 
 <template>
   <breadcrumbs class="position-fixed" :items="breadcrumbItems" />
-  <!-- <ul class="list">
-      <li v-for="tag in list" :key="tag.id" @click="select(tag)">
-          <div class='line-1' :class="[ hasChildren(tag) && 'has-children' ]">
-              <div class="name">{{ tag.name }}</div>
-              <side-button v-if="!readOnly" right color-secondary :onClick="(mouseEvent) => edit(mouseEvent, tag)">
-                  <icon icon="edit" size="2x" />
-              </side-button>
-              <side-button v-if="readOnly" right color-primary :onClick="() => onChoose && onChoose(tag)">
-                  <icon icon="check-circle" size="2x" />
-              </side-button>
-          </div>
-          <div v-if="tag.description" class='line-2'>{{ tag.description }}</div>
-      </li>
-  </ul> -->
-
   <list 
     :list="list"
     key-prop="id"

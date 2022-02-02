@@ -10,10 +10,11 @@ export default defineComponent({
   components: { ActionButton, SelectTagOverlay },
   setup() {
     const [ openSelectTagOverlay, closeSelectTagOverlay ] = useSelectTagOverlay()
-    const selectedTagName = ref<string | undefined>(store.state.selectedTag?.name)
+    const selectedTagName = ref<string | undefined>()
 
     const handleTagSelected = (tag: Tag) => {
       store.commit(MutationTypes.setSelectedTag, tag)
+      console.log('handleTagSelected')
       closeSelectTagOverlay()
     }
 
@@ -36,7 +37,7 @@ export default defineComponent({
     :type="ActionButtonType.TOP"
     @click="openSelectTagOverlay"
   />
-  <select-tag-overlay title="Select tag" :onChoose="handleTagSelected" />
+  <select-tag-overlay title="Select tag" @onChoose="handleTagSelected" />
 </template>
 
 <style lang="scss" scoped>

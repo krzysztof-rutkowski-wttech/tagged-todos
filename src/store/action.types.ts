@@ -1,13 +1,17 @@
 import { ActionContext } from 'vuex'
 import { State } from '@/store/store.types'
 import { Mutations } from '@/store/mutation.types'
+import { TodoItemState } from '@/services/model.types'
 
 export enum ActionTypes {
     setTodoItemAsDone = 'setTodoItemAsDone',
     removeTodoItem = 'removeTodoItem',
     loadTodos = 'loadTodos',
     addTodoItem = 'addTodoItem',
+    updateTodoItem = 'updateTodoItem',
     loadTags = 'loadTags',
+    addTag = 'addTag',
+    updateTag = 'updateTag',
   }
 
 type AugmentedActionContext = {
@@ -21,6 +25,11 @@ interface AddTodoItemPayload {
   name: string,
   description: string,
   tags: string[],
+}
+
+interface UpdateTodoItemPayload extends AddTodoItemPayload {
+  id: string,
+  state: TodoItemState,
 }
 
 export interface Actions {
@@ -41,6 +50,11 @@ export interface Actions {
   [ActionTypes.addTodoItem] (
     { commit }: AugmentedActionContext,
     payload: AddTodoItemPayload,
+  ): Promise<void>,
+
+  [ActionTypes.updateTodoItem] (
+    { commit }: AugmentedActionContext,
+    payload: UpdateTodoItemPayload,
   ): Promise<void>,
 
   [ActionTypes.loadTags] (

@@ -3,9 +3,9 @@ import { defineComponent, reactive, ref, toRefs } from 'vue'
 import { store } from '@/store'
 import ActionButton, { ActionButtonType } from '@/components/ActionButton.vue'
 import Button from '@/components/Button.vue'
-import { Tag, TodoItem } from '@/store/store.types'
+import { Tag } from '@/store/store.types'
 import SelectTagOverlay, { useSelectTagOverlay } from './overlays/SelectTagOverlay.vue'
-import { NewTodoItemModel } from '@/services/model.types'
+import { NewTodoItemModel, TodoItemModel } from '@/services/model.types'
 import { ActionTypes } from '@/store/action.types'
 
 type State = {
@@ -16,26 +16,48 @@ type State = {
 
 export default defineComponent({
   components: { ActionButton, Button, SelectTagOverlay },
-  emits: [ 'onAdded' ],
-  setup(_,  { emit }) {
+  emits: [ 'onAdded', 'onChanged' ],
+  props: {
+    todoItem: {
+      type: Object,
+      required: false,
+    }
+  },
+  setup(props,  { emit }) {
+    const todoItem = props.todoItem as TodoItemModel
     const state: State = reactive({
       todoItemName: '',
       todoItemDescr: '',
       errorMessages: [],
     })
-    const assignedTags = ref<Tag[]>([])
+    const assignedTags = ref<string[]>(todoItem?.tags ?? [])
 
     const add = async () => {
       try {
         const newTodoItem: NewTodoItemModel = {
           name: state.todoItemName,
           description: state.todoItemDescr,
-          tags: assignedTags.value.map(tag => tag.id)
+          tags: assignedTags.value,
         }
         await store.dispatch(ActionTypes.addTodoItem, newTodoItem)
         emit('onAdded')
       } catch (error) {
           state.errorMessages.push('Error storing a new todo item!')
+          console.log(error)
+      }
+    }
+
+    const edit = async () => {
+      try {
+        const todoItem: NewTodoItemModel = {
+          name: state.todoItemName,
+          description: state.todoItemDescr,
+          tags: assignedTags.value
+        }
+        await store.dispatch(ActionTypes.addTodoItem, todoItem)
+        emit('onChanged')
+      } catch (error) {
+          state.errorMessages.push('Error storing updated todo item!')
           console.log(error)
       }
     }
@@ -56,6 +78,7 @@ export default defineComponent({
     }
 
     const scrollToBottom = () => {
+      // TODO
     }
 
     const handleAdd = () => {
@@ -71,23 +94,29 @@ export default defineComponent({
     }
 
     const handleTagSelected = (tag: Tag) => {
-      const tagIndex = assignedTags.value.findIndex(({id}) => id === tag.id)
+      console.log('handleTagSelected', tag.name)
+      const tagIndex = assignedTags.value.findIndex(tagId => tagId === tag.id)
       if (tagIndex < 0) {
-        assignedTags.value.push(tag)
+        assignedTags.value.push(tag.id)
       }
       scrollToBottom()
       closeSelectTagOverlay()
     }
 
-    const handleRemoveTag = (tag: Tag) => {
-      const tagIndex = assignedTags.value.findIndex(({id}) => id === tag.id)
+    const handleRemoveTag = (tagId: string) => {
+      const tagIndex = assignedTags.value.findIndex(id => id === tagId)
       if (tagIndex > -1) {
         assignedTags.value.splice(tagIndex, 1)
       }
     }
 
+    const tagName = (tagId: string) => {
+      return store.state.tags?.find(tag => tag.id === tagId)?.name
+    }
+
     return {
       ...toRefs(state),
+      tagName,
       ActionButtonType,
       handleAdd,
       handleAddTag,
@@ -114,9 +143,9 @@ export default defineComponent({
       v-model="todoItemDescr"
     />
     <label>Tags</label>
-    <div class="tag" v-for="tag in assignedTags" :key="tag.id">
-      <span>{{ tag.name }}</span>
-      <span class="side-button" @click="() => handleRemoveTag(tag)"><icon icon="minus-circle" /></span>
+    <div class="tag" v-for="tagId in assignedTags" :key="tagId">
+      <span>{{ tagName(tagId) }}</span>
+      <span class="side-button" @click="() => handleRemoveTag(tagId)"><icon icon="minus-circle" /></span>
     </div>
     <Button @click="handleAddTag">
       <span class="icon"><icon icon="plus-circle" /></span>
@@ -124,7 +153,7 @@ export default defineComponent({
     </Button>
   </form>
   <action-button label="Add" :type="ActionButtonType.BOTTOM" @click="handleAdd"/>
-  <select-tag-overlay title="Select tag" :onChoose="handleTagSelected" />
+  <select-tag-overlay title="Select tag" @onChoose="handleTagSelected" />
 </template>
 
 <style lang="scss" scoped>

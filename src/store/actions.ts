@@ -1,6 +1,6 @@
 import { ActionTree } from 'vuex'
 import { ActionTypes, Actions } from '@/store/action.types'
-import { loadTodos, loadTags, deleteTodoItem, updateTodoItemStatus, addTodoItem } from '@/services/todosApi'
+import { loadTodos, loadTags, deleteTodoItem, updateTodoItemStatus, addTodoItem, updateTodoItem } from '@/services/todosApi'
 import { TodoItemState, State } from '@/store/store.types'
 import { MutationTypes } from '@/store/mutation.types'
 
@@ -36,6 +36,15 @@ export const actions: ActionTree<State, State> & Actions = {
       try {
         const { data } = await addTodoItem({ name, description, tags })       
         if (data) commit(MutationTypes.addTodoItem, data)
+      } catch ({ errorDescr }) {
+        console.log(errorDescr)
+      }
+    },
+
+    async [ActionTypes.updateTodoItem] ({ commit }, { id, name, description, state, tags }) {
+      try {
+        const { data } = await updateTodoItem({ id, name, description, state, tags })       
+        if (data) commit(MutationTypes.updateTodoItem, data)
       } catch ({ errorDescr }) {
         console.log(errorDescr)
       }

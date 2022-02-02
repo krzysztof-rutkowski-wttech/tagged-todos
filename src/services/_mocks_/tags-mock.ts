@@ -5,11 +5,9 @@ const { FIXED, NORMAL } = TagType
 export const tags: Tag[] = [
     { id: 'fixed-shopping', name: 'Shopping', type: FIXED, description: '' },
     { id: 'fixed-tasks', name: 'Tasks to do', type: FIXED, description: '' },
-
     { id: 'fixed-tools', name: 'Tools', type: FIXED, description: '' },
     { id: 'fixed-grocery', name: 'Grocery', type: FIXED, description: '' },
     { id: 'fixed-gardening', name: 'Gardening', type: FIXED, description: '' },
-
     { id: 'biedronka', name: 'Biedronka', type: FIXED, description: 'grocery shop' },
     { id: 'lidl', name: 'Lidl', type: FIXED, description: 'grocery shop' },
     { id: 'spar', name: 'Spar', type: FIXED, description: 'grocery shop' },

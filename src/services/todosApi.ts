@@ -1,4 +1,4 @@
-import { ReturnStatus, addTodoItemFun } from '@/services/todosApi.types'
+import { ReturnStatus, addTodoItemFun, updateTodoItemFun } from '@/services/todosApi.types'
 import { Status, TagsModel, TodoListModel } from '@/services/model.types'
 import { TodoItemState, TodoItem } from '@/store/store.types'
 import { store } from '@/store'
@@ -29,7 +29,18 @@ export const addTodoItem: addTodoItemFun = async ({ name, description, tags }): 
         tags,
         state: TodoItemState.WAITING,
     })
-//    return Promise.reject({ status: Status.ERROR, errorDescr: 'error loading todo items' })
+//    return Promise.reject({ status: Status.ERROR, errorDescr: 'error adding todo items' })
+}
+
+export const updateTodoItem: updateTodoItemFun = async ({ id, name, description, state, tags }): Promise<ReturnStatus<TodoItem>> => {
+    return await apiCallMock<TodoItem>({
+        id,
+        name,
+        description,
+        tags,
+        state
+    })
+//    return Promise.reject({ status: Status.ERROR, errorDescr: 'error updating todo items' })
 }
 
 export const loadTags = async (): Promise<ReturnStatus<TagsModel>> => {
@@ -41,7 +52,6 @@ export const deleteTodoItem = async (id: string): Promise<ReturnStatus<void>> =>
     return await apiCallMock()
     // return Promise.reject({ status: Status.ERROR, errorDescr: 'error deleting item' })
 }
-
 
 export const updateTodoItemStatus = async (id: string, state: TodoItemState): Promise<ReturnStatus<void>> => {
     return await apiCallMock()
